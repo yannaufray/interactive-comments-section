@@ -5,7 +5,7 @@ export default {
   name: "Home",
   components: {},
   setup() {
-    const test = fetch("../data.json").then((res) => console.log(res));
+    fetch("http://localhost:5000/comments").then((res) => console.log(res));
   },
 };
 </script>

@@ -5,7 +5,9 @@ export default {
   name: "Home",
   components: {},
   setup() {
-    fetch("http://localhost:5000/comments").then((res) => console.log(res));
+    fetch("http://localhost:5000/comments").then((res) =>
+      console.log(res.json())
+    );
   },
 };
 </script>

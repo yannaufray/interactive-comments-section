@@ -7,18 +7,15 @@
         class="pic"
       />
       <h3 class="pseudo">amyrobson</h3>
-      <span class="date">1 month ago</span>
+      <span class="date">{{ comment.createdAt }}</span>
     </div>
     <div class="text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum
-      consequatur recusandae earum suscipit similique sed molestias praesentium
-      ipsum ex fugiat voluptas atque eveniet, itaque commodi dicta enim aut.
-      Quaerat!
+      {{ comment.content }}
     </div>
     <div class="interact">
       <div class="likes">
         <img src="../assets/images/icon-plus.svg" alt="" />
-        <span class="likes-number">12</span>
+        <span class="likes-number">{{ comment.score }}</span>
         <img src="../assets/images/icon-minus.svg" alt="" />
       </div>
       <div class="reply">

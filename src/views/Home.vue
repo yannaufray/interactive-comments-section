@@ -2,7 +2,7 @@
   <div v-if="comments.length">
     <div v-for="comment in comments" :key="comment.id">
       <Comment :comment="comment" />
-      <div v-if="comment.replies.length">
+      <div v-if="comment.replies.length" class="replies">
         <div v-for="reply in comment.replies" :key="reply.id">
           <Comment :comment="reply" />
         </div>
@@ -54,5 +54,10 @@ export default {
 
 body {
   background-color: hsl(228, 33%, 97%);
+}
+
+.replies {
+  border-left: 0.2rem solid hsl(223, 19%, 93%);
+  margin-left: 1rem;
 }
 </style>

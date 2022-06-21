@@ -1,15 +1,14 @@
 <template>
   <div class="comment">
     <div class="infos">
-      <img
-        src="../assets/images/avatars/image-amyrobson.png"
-        alt=""
-        class="pic"
-      />
-      <h3 class="pseudo">amyrobson</h3>
+      <img :src="comment.user.image.png" alt="" class="pic" />
+      <h3 class="username">{{ comment.user.username }}</h3>
       <span class="date">{{ comment.createdAt }}</span>
     </div>
     <div class="text">
+      <span v-if="comment.replyingTo" class="replying-to"
+        >@{{ comment.replyingTo }}</span
+      >
       {{ comment.content }}
     </div>
     <div class="interact">
@@ -44,7 +43,7 @@ export default { props: ["comment"] };
 }
 
 .infos img,
-.infos .pseudo {
+.infos .username {
   margin-right: 1rem;
 }
 
@@ -52,7 +51,7 @@ export default { props: ["comment"] };
   width: 2rem;
 }
 
-.infos .pseudo {
+.infos .username {
   font-weight: 700;
 }
 
@@ -81,14 +80,14 @@ export default { props: ["comment"] };
   gap: 0.5rem;
 }
 
-.likes-number {
+.likes-number,
+.reply span,
+.replying-to {
   font-weight: 700;
   color: hsl(238, 40%, 52%);
 }
 
 .reply span {
-  font-weight: 700;
-  color: hsl(238, 40%, 52%);
   margin-left: 0.5rem;
 }
 </style>

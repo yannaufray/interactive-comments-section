@@ -1,38 +1,13 @@
 <template>
-  <div class="comment">
-    <div class="infos">
-      <img
-        src="../assets/images/avatars/image-amyrobson.png"
-        alt=""
-        class="pic"
-      />
-      <span class="pseudo">amyrobson</span>
-      <span class="date">1 month ago</span>
-    </div>
-    <div class="text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam dolorum
-      consequatur recusandae earum suscipit similique sed molestias praesentium
-      ipsum ex fugiat voluptas atque eveniet, itaque commodi dicta enim aut.
-      Quaerat!
-    </div>
-    <div class="interact">
-      <div class="likes">
-        <img src="../assets/images/icon-minus.svg" alt="" />
-        <span>12</span>
-        <img src="../assets/images/icon-plus.svg" alt="" />
-      </div>
-      <div class="reply">
-        <img src="../assets/images/icon-reply.svg" alt="" />
-      </div>
-      <span>Reply</span>
-    </div>
-  </div>
+  <Comment />
 </template>
 
 <script>
+import Comment from "../components/Comment.vue";
+
 export default {
   name: "Home",
-  components: {},
+  components: { Comment },
   setup() {
     const comments = fetch("http://localhost:5000/comments").then((res) => {
       if (res.status === 200) {
@@ -42,3 +17,11 @@ export default {
   },
 };
 </script>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+</style>

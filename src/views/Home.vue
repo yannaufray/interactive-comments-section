@@ -2,6 +2,11 @@
   <div v-if="comments.length">
     <div v-for="comment in comments" :key="comment.id">
       <Comment :comment="comment" />
+      <div v-if="comment.replies.length">
+        <div v-for="reply in comment.replies" :key="reply.id">
+          <Comment :comment="reply" />
+        </div>
+      </div>
     </div>
   </div>
   <div v-else>Loading...</div>

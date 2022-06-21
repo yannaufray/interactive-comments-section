@@ -6,7 +6,7 @@
         alt=""
         class="pic"
       />
-      <span class="pseudo">amyrobson</span>
+      <h3 class="pseudo">amyrobson</h3>
       <span class="date">1 month ago</span>
     </div>
     <div class="text">
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-export default {};
+export default { props: ["comment"] };
 </script>
 
 <style scoped>

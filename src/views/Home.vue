@@ -24,4 +24,8 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+body {
+  background-color: hsl(228, 33%, 97%);
+}
 </style>

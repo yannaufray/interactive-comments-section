@@ -17,14 +17,14 @@
     </div>
     <div class="interact">
       <div class="likes">
-        <img src="../assets/images/icon-minus.svg" alt="" />
-        <span>12</span>
         <img src="../assets/images/icon-plus.svg" alt="" />
+        <span class="likes-number">12</span>
+        <img src="../assets/images/icon-minus.svg" alt="" />
       </div>
       <div class="reply">
         <img src="../assets/images/icon-reply.svg" alt="" />
+        <span>Reply</span>
       </div>
-      <span>Reply</span>
     </div>
   </div>
 </template>
@@ -33,4 +33,65 @@
 export default {};
 </script>
 
-<style></style>
+<style scoped>
+.comment {
+  background-color: white;
+  margin: 2rem 1rem 1rem;
+  padding: 1rem;
+}
+
+.infos {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.infos img,
+.infos .pseudo {
+  margin-right: 1rem;
+}
+
+.infos img {
+  width: 2rem;
+}
+
+.infos .pseudo {
+  font-weight: 700;
+}
+
+.infos .date {
+  columns: hsl(211, 10%, 45%);
+}
+
+.text {
+  color: hsl(211, 10%, 45%);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.interact {
+  display: flex;
+  justify-content: space-between;
+}
+
+.likes {
+  background-color: hsl(228, 33%, 97%);
+  padding: 0.5rem 1rem;
+  border-radius: 0.3rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.likes-number {
+  font-weight: 700;
+  color: hsl(238, 40%, 52%);
+}
+
+.reply span {
+  font-weight: 700;
+  color: hsl(238, 40%, 52%);
+  margin-left: 0.5rem;
+}
+</style>

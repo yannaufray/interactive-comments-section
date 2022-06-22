@@ -6,7 +6,11 @@
         :comment="comment"
         :currentUser="currentUser"
       />
-      <NewComment v-if="replying & (comment.id === replyingId)" />
+      <NewComment
+        @send="handleSend"
+        v-if="replying & (comment.id === replyingId)"
+        :currentUser="currentUser"
+      />
 
       <div v-if="comment.replies.length" class="replies">
         <div v-for="reply in comment.replies" :key="reply.id">
@@ -15,7 +19,11 @@
             :comment="reply"
             :currentUser="currentUser"
           />
-          <NewComment v-if="replying & (reply.id === replyingId)" />
+          <NewComment
+            @send="handleSend"
+            v-if="replying & (reply.id === replyingId)"
+            :currentUser="currentUser"
+          />
         </div>
       </div>
     </div>
@@ -49,7 +57,27 @@ export default {
   methods: {
     handleReply: function (commentToBeReplied) {
       this.replying = !this.replying;
-      this.replyingId = commentToBeReplied;
+      this.replyingId = commentToBeReplied.id;
+
+      this.repliedUser = commentToBeReplied.user.username;
+    },
+
+    handleSend: function (newReply) {
+      const reply = {
+        id: Math.floor(Math.random() * 100000),
+        content: newReply.content,
+        createdAt: new Date(),
+        score: 0,
+        replyingTo: this.replyingId,
+        user: {
+          image: {
+            png: "../assets/images/avatars/image-juliusomo.png",
+            webp: "../assets/images/avatars/image-juliusomo.webp",
+          },
+          username: this.currentUser,
+        },
+      };
+      console.log(reply);
     },
   },
 

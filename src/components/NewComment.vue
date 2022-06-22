@@ -1,17 +1,35 @@
 <template>
   <div class="new-comment">
     <div class="input-wrapper">
-      <textarea placeholder="Add a comment..." class="comment-input"></textarea>
+      <textarea
+        placeholder="Add a comment..."
+        class="comment-input"
+        v-model="content"
+      ></textarea>
     </div>
     <div class="send">
       <img src="../assets/images/avatars/image-amyrobson.png" alt="" />
-      <button class="btn-send">Send</button>
+      <button @click="sendReply" class="btn-send">Send</button>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      content: "",
+    };
+  },
+  methods: {
+    sendReply: function () {
+      const newReply = {
+        content: this.content,
+      };
+      this.$emit("send", newReply);
+    },
+  },
+};
 </script>
 
 <style>

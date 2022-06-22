@@ -19,7 +19,7 @@
         <img src="../assets/images/icon-minus.svg" alt="" />
       </div>
       <div
-        @click="$emit('reply', comment.id)"
+        @click="$emit('reply', comment)"
         v-if="comment.user.username !== currentUser"
         class="reply"
       >

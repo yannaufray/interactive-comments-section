@@ -18,9 +18,19 @@
         <span class="likes-number">{{ comment.score }}</span>
         <img src="../assets/images/icon-minus.svg" alt="" />
       </div>
-      <div class="reply">
+      <div v-if="comment.user.username !== currentUser" class="reply">
         <img src="../assets/images/icon-reply.svg" alt="" />
         <span>Reply</span>
+      </div>
+      <div v-else class="icons-current-user">
+        <div class="delete">
+          <img src="../assets/images/icon-delete.svg" alt="" />
+          <span>Delete</span>
+        </div>
+        <div class="edit">
+          <img src="../assets/images/icon-edit.svg" alt="" />
+          <span>Edit</span>
+        </div>
       </div>
     </div>
   </div>
@@ -91,12 +101,19 @@ export default { props: ["comment", "currentUser"] };
   color: hsl(238, 40%, 52%);
 }
 
+.edit span,
+.delete span {
+  font-weight: 700;
+}
+
 .reply {
   display: flex;
   align-items: center;
 }
 
-.reply span {
+.reply span,
+.edit span,
+.delete span {
   margin-left: 0.5rem;
 }
 
@@ -106,5 +123,18 @@ export default { props: ["comment", "currentUser"] };
   font-weight: 700;
   background-color: hsl(238, 40%, 52%);
   border-radius: 0.3rem;
+}
+
+.icons-current-user {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit span {
+  color: hsl(238, 40%, 52%);
+}
+
+.delete span {
+  color: hsl(358, 79%, 66%);
 }
 </style>

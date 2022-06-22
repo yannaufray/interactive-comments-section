@@ -1,14 +1,25 @@
 <template>
   <div v-if="comments.length">
     <div v-for="comment in comments" :key="comment.id">
-      <Comment :comment="comment" :currentUser="currentUser" />
+      <Comment
+        @reply="handleReply"
+        :comment="comment"
+        :currentUser="currentUser"
+      />
+      <NewComment v-if="replying & (comment.id === replyingId)" />
+
       <div v-if="comment.replies.length" class="replies">
         <div v-for="reply in comment.replies" :key="reply.id">
-          <Comment :comment="reply" :currentUser="currentUser" />
+          <Comment
+            @reply="handleReply"
+            :comment="reply"
+            :currentUser="currentUser"
+          />
+          <NewComment v-if="replying & (reply.id === replyingId)" />
         </div>
       </div>
     </div>
-    <NewComment />
+    <NewComment v-if="!replying" />
   </div>
   <div v-else>Loading...</div>
 </template>
@@ -25,6 +36,8 @@ export default {
     return {
       comments: [],
       currentUser: "juliusomo",
+      replying: false,
+      replyingId: null,
     };
   },
   mounted() {
@@ -33,6 +46,13 @@ export default {
       .then((data) => (this.comments = data))
       .catch((err) => console.log(err.message));
   },
+  methods: {
+    handleReply: function (commentToBeReplied) {
+      this.replying = !this.replying;
+      this.replyingId = commentToBeReplied;
+    },
+  },
+
   // setup() {
   //   let comments = ref([]);
 

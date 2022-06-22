@@ -18,7 +18,11 @@
         <span class="likes-number">{{ comment.score }}</span>
         <img src="../assets/images/icon-minus.svg" alt="" />
       </div>
-      <div v-if="comment.user.username !== currentUser" class="reply">
+      <div
+        @click="$emit('reply', comment.id)"
+        v-if="comment.user.username !== currentUser"
+        class="reply"
+      >
         <img src="../assets/images/icon-reply.svg" alt="" />
         <span>Reply</span>
       </div>
@@ -37,7 +41,9 @@
 </template>
 
 <script>
-export default { props: ["comment", "currentUser"] };
+export default {
+  props: ["comment", "currentUser"],
+};
 </script>
 
 <style scoped>
@@ -69,7 +75,8 @@ export default { props: ["comment", "currentUser"] };
 }
 
 .infos .date {
-  columns: hsl(211, 10%, 45%);
+  color: hsl(211, 10%, 45%);
+  font-weight: 500;
 }
 
 .text {
@@ -109,6 +116,7 @@ export default { props: ["comment", "currentUser"] };
 .reply {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .reply span,

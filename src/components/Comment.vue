@@ -3,6 +3,7 @@
     <div class="infos">
       <img :src="comment.user.image.png" alt="" class="pic" />
       <h3 class="username">{{ comment.user.username }}</h3>
+      <span v-if="comment.user.username === currentUser" class="you">you</span>
       <span class="date">{{ comment.createdAt }}</span>
     </div>
     <div class="text">
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-export default { props: ["comment"] };
+export default { props: ["comment", "currentUser"] };
 </script>
 
 <style scoped>
@@ -44,7 +45,7 @@ export default { props: ["comment"] };
 }
 
 .infos img,
-.infos .username {
+.you {
   margin-right: 1rem;
 }
 
@@ -54,6 +55,7 @@ export default { props: ["comment"] };
 
 .infos .username {
   font-weight: 700;
+  margin-right: 0.5rem;
 }
 
 .infos .date {
@@ -69,6 +71,7 @@ export default { props: ["comment"] };
 .interact {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .likes {
@@ -88,7 +91,20 @@ export default { props: ["comment"] };
   color: hsl(238, 40%, 52%);
 }
 
+.reply {
+  display: flex;
+  align-items: center;
+}
+
 .reply span {
   margin-left: 0.5rem;
+}
+
+.you {
+  padding: 0.1rem 0.4rem;
+  color: white;
+  font-weight: 700;
+  background-color: hsl(238, 40%, 52%);
+  border-radius: 0.3rem;
 }
 </style>

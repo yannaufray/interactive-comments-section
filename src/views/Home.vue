@@ -1,10 +1,10 @@
 <template>
   <div v-if="comments.length">
     <div v-for="comment in comments" :key="comment.id">
-      <Comment :comment="comment" />
+      <Comment :comment="comment" :currentUser="currentUser" />
       <div v-if="comment.replies.length" class="replies">
         <div v-for="reply in comment.replies" :key="reply.id">
-          <Comment :comment="reply" />
+          <Comment :comment="reply" :currentUser="currentUser" />
         </div>
       </div>
     </div>
@@ -24,6 +24,7 @@ export default {
   data() {
     return {
       comments: [],
+      currentUser: "juliusomo",
     };
   },
   mounted() {

@@ -3,8 +3,10 @@
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
+        @delete="handleDelete"
         :comment="comment"
         :currentUser="currentUser"
+        :replyingTo="replyingTo"
       />
       <NewComment
         @send="handleSend"
@@ -16,8 +18,10 @@
         <div v-for="reply in comment.replies" :key="reply.id">
           <Comment
             @reply="handleReply"
+            @delete="handleDelete"
             :comment="reply"
             :currentUser="currentUser"
+            :replyingTo="replyingTo"
           />
           <NewComment
             @send="handleSend"
@@ -33,7 +37,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "@vue/runtime-core";
+// import { onMounted, ref } from "@vue/runtime-core";
 import Comment from "../components/Comment.vue";
 import NewComment from "../components/NewComment.vue";
 
@@ -46,6 +50,7 @@ export default {
       currentUser: "juliusomo",
       replying: false,
       replyingId: null,
+      replyingTo: "",
     };
   },
   mounted() {
@@ -59,10 +64,13 @@ export default {
         .catch((err) => console.log(err.message));
     },
     handleReply: function (commentToBeReplied) {
+      // Toggling off the bottom comment input box
       this.replying = !this.replying;
+      // Setting id to display input box bellow the right comment
       this.replyingId = commentToBeReplied.id;
-
-      this.repliedUser = commentToBeReplied.user.username;
+      // Setting replyingTo to get the @username tag
+      this.replyingTo = commentToBeReplied.replyingTo;
+      console.log(commentToBeReplied.replyingTo);
     },
 
     handleSend: async function (newReply) {
@@ -71,7 +79,7 @@ export default {
         content: newReply.content,
         createdAt: new Date(),
         score: 0,
-        replyingTo: this.replyingId,
+        replyingTo: this.replyingTo,
         user: {
           image: {
             png: "../assets/images/avatars/image-juliusomo.png",
@@ -86,7 +94,13 @@ export default {
       );
       const currentPost = await currentPostRes.json();
 
-      currentPost.replies.push(reply);
+      // Marcherait ?
+      // currentPost.replies = [...currentPost.replies, reply];
+      if (currentPost.replies) {
+        currentPost.replies.push(reply);
+      } else {
+        currentPost.replies = [reply];
+      }
 
       await fetch(`http://localhost:5000/comments/${this.replyingId}`, {
         method: "PATCH",
@@ -96,8 +110,13 @@ export default {
         body: JSON.stringify(currentPost),
       });
 
+      // Toggling off the new comment input box
       this.replying = !this.replying;
+      // Fetching comments with the new one
       this.fetchComments();
+    },
+    handleDelete: function (id) {
+      console.log("delete");
     },
   },
 

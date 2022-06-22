@@ -27,7 +27,7 @@
         <span>Reply</span>
       </div>
       <div v-else class="icons-current-user">
-        <div class="delete">
+        <div @click="$emit('delete', comment.id)" class="delete">
           <img src="../assets/images/icon-delete.svg" alt="" />
           <span>Delete</span>
         </div>
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-  props: ["comment", "currentUser"],
+  props: ["comment", "currentUser", "replyingTo"],
 };
 </script>
 
@@ -113,10 +113,15 @@ export default {
   font-weight: 700;
 }
 
+.delete,
+.reply,
+.edit {
+  cursor: pointer;
+}
+
 .reply {
   display: flex;
   align-items: center;
-  cursor: pointer;
 }
 
 .reply span,

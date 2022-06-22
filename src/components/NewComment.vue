@@ -30,6 +30,11 @@ export default {};
   resize: none;
 }
 
+.comment-input:focus {
+  outline: none;
+  border: 0.1rem solid hsl(238, 40%, 52%);
+}
+
 .input-wrapper {
   padding-right: 2rem;
 }

@@ -1,0 +1,58 @@
+<template>
+  <div class="new-comment">
+    <div class="input-wrapper">
+      <textarea placeholder="Add a comment..." class="comment-input"></textarea>
+    </div>
+    <div class="send">
+      <img src="../assets/images/avatars/image-amyrobson.png" alt="" />
+      <button class="btn-send">Send</button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style>
+.new-comment {
+  margin: 1rem;
+  background-color: white;
+  border-radius: 0.3rem;
+}
+
+.comment-input {
+  margin: 1rem;
+  border-radius: 0.3rem;
+  width: 100%;
+  padding: 1rem 1rem 2.5rem;
+  border: 0.1rem solid hsl(223, 19%, 93%);
+  resize: none;
+}
+
+.input-wrapper {
+  padding-right: 2rem;
+}
+
+.send {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.send img {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-send {
+  padding: 0.8rem 1.5rem;
+  background-color: hsl(238, 40%, 52%);
+  border-radius: 0.5rem;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+}
+</style>

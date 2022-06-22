@@ -8,6 +8,7 @@
         </div>
       </div>
     </div>
+    <NewComment />
   </div>
   <div v-else>Loading...</div>
 </template>
@@ -15,10 +16,11 @@
 <script>
 import { onMounted, ref } from "@vue/runtime-core";
 import Comment from "../components/Comment.vue";
+import NewComment from "../components/NewComment.vue";
 
 export default {
   name: "Home",
-  components: { Comment },
+  components: { Comment, NewComment },
   data() {
     return {
       comments: [],
@@ -47,6 +49,8 @@ export default {
 
 <style>
 * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
   margin: 0;
   padding: 0;

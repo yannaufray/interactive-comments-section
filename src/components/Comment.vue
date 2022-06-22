@@ -34,6 +34,7 @@ export default { props: ["comment"] };
   background-color: white;
   margin: 2rem 1rem 1rem;
   padding: 1rem;
+  border-radius: 0.3rem;
 }
 
 .infos {

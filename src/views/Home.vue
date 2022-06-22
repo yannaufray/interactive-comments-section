@@ -49,12 +49,15 @@ export default {
     };
   },
   mounted() {
-    fetch("http://localhost:5000/comments")
-      .then((res) => res.json())
-      .then((data) => (this.comments = data))
-      .catch((err) => console.log(err.message));
+    this.fetchComments();
   },
   methods: {
+    fetchComments: function () {
+      fetch("http://localhost:5000/comments")
+        .then((res) => res.json())
+        .then((data) => (this.comments = data))
+        .catch((err) => console.log(err.message));
+    },
     handleReply: function (commentToBeReplied) {
       this.replying = !this.replying;
       this.replyingId = commentToBeReplied.id;
@@ -62,7 +65,7 @@ export default {
       this.repliedUser = commentToBeReplied.user.username;
     },
 
-    handleSend: function (newReply) {
+    handleSend: async function (newReply) {
       const reply = {
         id: Math.floor(Math.random() * 100000),
         content: newReply.content,
@@ -77,7 +80,24 @@ export default {
           username: this.currentUser,
         },
       };
-      console.log(reply);
+
+      const currentPostRes = await fetch(
+        `http://localhost:5000/comments/${this.replyingId}`
+      );
+      const currentPost = await currentPostRes.json();
+
+      currentPost.replies.push(reply);
+
+      await fetch(`http://localhost:5000/comments/${this.replyingId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(currentPost),
+      });
+
+      this.replying = !this.replying;
+      this.fetchComments();
     },
   },
 

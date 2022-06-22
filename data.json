@@ -19,7 +19,22 @@
         },
         "username": "amyrobson"
       },
-      "replies": []
+      "replies": [
+        {
+          "id": 47750,
+          "content": "Comment tu vas ?",
+          "createdAt": "2022-06-22T15:41:21.138Z",
+          "score": 0,
+          "replyingTo": 1,
+          "user": {
+            "image": {
+              "png": "../assets/images/avatars/image-juliusomo.png",
+              "webp": "../assets/images/avatars/image-juliusomo.webp"
+            },
+            "username": "juliusomo"
+          }
+        }
+      ]
     },
     {
       "id": 2,

@@ -115,8 +115,32 @@ export default {
       // Fetching comments with the new one
       this.fetchComments();
     },
-    handleDelete: function (id) {
-      console.log("delete");
+    handleDelete: async function (id) {
+      let commentReplied = {};
+      let commentRepliedId = null;
+      await fetch("http://localhost:5000/comments/").then((res) =>
+        res
+          .json()
+          .then((data) => {
+            commentReplied = data.find((el) =>
+              el.replies.find((el2) => el2.id === id)
+            );
+            commentRepliedId = commentReplied.id;
+            commentReplied.replies = commentReplied.replies.filter(
+              (el) => el.id !== id
+            );
+          })
+          .then(() => {
+            fetch(`http://localhost:5000/comments/${commentRepliedId}`, {
+              method: "PATCH",
+              headers: {
+                "Content-type": "application/json",
+              },
+              body: JSON.stringify(commentReplied),
+            });
+            this.fetchComments();
+          })
+      );
     },
   },
 

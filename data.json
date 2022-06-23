@@ -19,47 +19,7 @@
         },
         "username": "amyrobson"
       },
-      "replies": [
-        {
-          "id": 76293,
-          "content": "pp",
-          "createdAt": "2022-06-22T16:56:48.367Z",
-          "score": 0,
-          "user": {
-            "image": {
-              "png": "../assets/images/avatars/image-juliusomo.png",
-              "webp": "../assets/images/avatars/image-juliusomo.webp"
-            },
-            "username": "juliusomo"
-          }
-        },
-        {
-          "id": 91044,
-          "content": "m",
-          "createdAt": "2022-06-22T19:29:06.909Z",
-          "score": 0,
-          "user": {
-            "image": {
-              "png": "../assets/images/avatars/image-juliusomo.png",
-              "webp": "../assets/images/avatars/image-juliusomo.webp"
-            },
-            "username": "juliusomo"
-          }
-        },
-        {
-          "id": 46353,
-          "content": "wxvwxvxw",
-          "createdAt": "2022-06-22T19:37:41.849Z",
-          "score": 0,
-          "user": {
-            "image": {
-              "png": "../assets/images/avatars/image-juliusomo.png",
-              "webp": "../assets/images/avatars/image-juliusomo.webp"
-            },
-            "username": "juliusomo"
-          }
-        }
-      ]
+      "replies": []
     },
     {
       "id": 2,

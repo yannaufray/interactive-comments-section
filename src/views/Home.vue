@@ -14,24 +14,24 @@
         :currentUser="currentUser"
       />
 
-      <div v-if="comment.replies.length" class="replies">
-        <div v-for="reply in comment.replies" :key="reply.id">
+      <div v-if="comment.replies && comment.replies.length" class="replies">
+        <div v-for="comment in comment.replies" :key="comment.id">
           <Comment
             @reply="handleReply"
             @delete="handleDelete"
-            :comment="reply"
+            :comment="comment"
             :currentUser="currentUser"
             :replyingTo="replyingTo"
           />
           <NewComment
             @send="handleSend"
-            v-if="replying & (reply.id === replyingId)"
+            v-if="replying & (comment.id === replyingId)"
             :currentUser="currentUser"
           />
         </div>
       </div>
     </div>
-    <NewComment v-if="!replying" />
+    <NewComment v-if="!replying" @send="handleSend" />
   </div>
   <div v-else>Loading...</div>
 </template>
@@ -70,7 +70,6 @@ export default {
       this.replyingId = commentToBeReplied.id;
       // Setting replyingTo to get the @username tag
       this.replyingTo = commentToBeReplied.replyingTo;
-      console.log(commentToBeReplied.replyingTo);
     },
 
     handleSend: async function (newReply) {
@@ -89,10 +88,12 @@ export default {
         },
       };
 
-      const currentPostRes = await fetch(
-        `http://localhost:5000/comments/${this.replyingId}`
-      );
+      // Si on répond à un post (replying = true), on fetch le post, sinon on fetch tous les commentaires
+      const currentPostRes = this.replying
+        ? await fetch(`http://localhost:5000/comments/${this.replyingId}`)
+        : await fetch("http://localhost:5000/comments/");
       const currentPost = await currentPostRes.json();
+      console.log(currentPost);
 
       // Marcherait ?
       // currentPost.replies = [...currentPost.replies, reply];
@@ -102,13 +103,18 @@ export default {
         currentPost.replies = [reply];
       }
 
-      await fetch(`http://localhost:5000/comments/${this.replyingId}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(currentPost),
-      });
+      await fetch(
+        this.replying
+          ? `http://localhost:5000/comments/${this.replyingId}`
+          : "http://localhost:5000/comments/",
+        {
+          method: this.replying ? "PATCH" : "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(currentPost),
+        }
+      );
 
       // Toggling off the new comment input box
       this.replying = !this.replying;

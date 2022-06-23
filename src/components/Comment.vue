@@ -1,7 +1,7 @@
 <template>
   <div class="comment">
     <div class="infos">
-      <img :src="comment.user.image.png" alt="" class="pic" />
+      <img src="" alt="" class="pic" />
       <h3 class="username">{{ comment.user.username }}</h3>
       <span v-if="comment.user.username === currentUser" class="you">you</span>
       <span class="date">{{ comment.createdAt }}</span>

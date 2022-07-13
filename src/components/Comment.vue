@@ -136,6 +136,12 @@ export default {
   cursor: pointer;
 }
 
+.delete:hover,
+.reply:hover,
+.edit:hover {
+  opacity: 0.7;
+}
+
 .reply {
   display: flex;
   align-items: center;

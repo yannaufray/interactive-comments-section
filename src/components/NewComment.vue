@@ -77,5 +77,10 @@ export default {
   text-transform: uppercase;
   font-weight: 700;
   border: none;
+  cursor: pointer;
+}
+
+.btn-send:hover {
+  opacity: 0.7;
 }
 </style>

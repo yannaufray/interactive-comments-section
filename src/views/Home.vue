@@ -37,7 +37,6 @@
 </template>
 
 <script>
-// import { onMounted, ref } from "@vue/runtime-core";
 import Comment from "../components/Comment.vue";
 import NewComment from "../components/NewComment.vue";
 

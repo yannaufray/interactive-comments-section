@@ -1,5 +1,5 @@
 <template>
-  <div class="comment">
+  <div class="full-comment">
     <div class="infos">
       <img src="" alt="" class="pic" />
       <h3 class="username">{{ comment.user.username }}</h3>
@@ -43,11 +43,15 @@
 <script>
 export default {
   props: ["comment", "currentUser", "replyingTo"],
+  // setup(props) {
+  //   const comment =
+  //   return {comment}
+  // }
 };
 </script>
 
 <style scoped>
-.comment {
+.full-comment {
   background-color: white;
   margin: 2rem 1rem 1rem;
   padding: 1rem;

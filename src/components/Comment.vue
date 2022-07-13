@@ -145,6 +145,7 @@ export default {
 .reply,
 .edit {
   cursor: pointer;
+  align-self: flex-start;
 }
 
 .delete:hover,

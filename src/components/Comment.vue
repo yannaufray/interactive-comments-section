@@ -1,32 +1,37 @@
 <template>
   <div class="full-comment">
-    <div class="infos">
-      <img src="" alt="" class="pic" />
-      <h3 class="username">{{ comment.user.username }}</h3>
-      <span v-if="comment.user.username === currentUser" class="you">you</span>
-      <span class="date">{{ comment.createdAt }}</span>
+    <div class="likes">
+      <img
+        src="../assets/images/icon-plus.svg"
+        alt="Plus button"
+        class="btn-plus"
+      />
+      <span class="likes-number">{{ comment.score }}</span>
+      <img
+        src="../assets/images/icon-minus.svg"
+        alt="Minus button"
+        class="btn-minus"
+      />
     </div>
-    <div class="text">
-      <span v-if="comment.replyingTo" class="replying-to"
-        >@{{ comment.replyingTo }}</span
-      >
-      {{ comment.content }}
-    </div>
-    <div class="interact">
-      <div class="likes">
-        <img
-          src="../assets/images/icon-plus.svg"
-          alt="Plus button"
-          class="btn-plus"
-        />
-        <span class="likes-number">{{ comment.score }}</span>
-        <img
-          src="../assets/images/icon-minus.svg"
-          alt="Minus button"
-          class="btn-minus"
-        />
+
+    <div class="content">
+      <div class="infos">
+        <img src="" alt="" class="pic" />
+        <h3 class="username">{{ comment.user.username }}</h3>
+        <span v-if="comment.user.username === currentUser" class="you"
+          >you</span
+        >
+        <span class="date">{{ comment.createdAt }}</span>
+      </div>
+
+      <div class="text">
+        <span v-if="comment.replyingTo" class="replying-to"
+          >@{{ comment.replyingTo }}</span
+        >
+        {{ comment.content }}
       </div>
     </div>
+
     <div
       @click="$emit('reply', comment)"
       v-if="comment.user.username !== currentUser"
@@ -51,10 +56,6 @@
 <script>
 export default {
   props: ["comment", "currentUser", "replyingTo"],
-  // setup(props) {
-  //   const comment =
-  //   return {comment}
-  // }
 };
 </script>
 
@@ -65,6 +66,24 @@ export default {
   padding: 1rem;
   border-radius: 0.3rem;
   position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.likes {
+  background-color: hsl(228, 33%, 97%);
+  border-radius: 0.3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: center; /* Prevents from stretching vertically */
+  gap: 0.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
 }
 
 .infos {
@@ -96,21 +115,6 @@ export default {
   color: hsl(211, 10%, 45%);
   margin-bottom: 1rem;
   font-weight: 500;
-}
-
-.interact {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.likes {
-  background-color: hsl(228, 33%, 97%);
-  border-radius: 0.3rem;
-
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .likes-number,
@@ -158,12 +162,6 @@ export default {
   display: block;
 }
 
-.reply span,
-.edit span,
-.delete span {
-  margin-left: 0.5rem;
-}
-
 .you {
   padding: 0.1rem 0.4rem;
   color: white;
@@ -193,6 +191,10 @@ export default {
 
   .reply {
     top: 1rem;
+  }
+
+  .full-comment {
+    flex-direction: row;
   }
 }
 </style>

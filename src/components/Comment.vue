@@ -26,23 +26,23 @@
           class="btn-minus"
         />
       </div>
-      <div
-        @click="$emit('reply', comment)"
-        v-if="comment.user.username !== currentUser"
-        class="reply"
-      >
-        <img src="../assets/images/icon-reply.svg" alt="" />
-        <span>Reply</span>
+    </div>
+    <div
+      @click="$emit('reply', comment)"
+      v-if="comment.user.username !== currentUser"
+      class="reply"
+    >
+      <img src="../assets/images/icon-reply.svg" alt="" />
+      <span>Reply</span>
+    </div>
+    <div v-else class="icons-current-user">
+      <div @click="$emit('delete', comment.id)" class="delete">
+        <img src="../assets/images/icon-delete.svg" alt="" />
+        <span>Delete</span>
       </div>
-      <div v-else class="icons-current-user">
-        <div @click="$emit('delete', comment.id)" class="delete">
-          <img src="../assets/images/icon-delete.svg" alt="" />
-          <span>Delete</span>
-        </div>
-        <div class="edit">
-          <img src="../assets/images/icon-edit.svg" alt="" />
-          <span>Edit</span>
-        </div>
+      <div class="edit">
+        <img src="../assets/images/icon-edit.svg" alt="" />
+        <span>Edit</span>
       </div>
     </div>
   </div>
@@ -64,6 +64,7 @@ export default {
   margin: 2rem 1rem 1rem;
   padding: 1rem;
   border-radius: 0.3rem;
+  position: relative;
 }
 
 .infos {
@@ -151,6 +152,10 @@ export default {
 .reply {
   display: flex;
   align-items: center;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: block;
 }
 
 .reply span,
@@ -179,5 +184,15 @@ export default {
 
 .delete span {
   color: hsl(358, 79%, 66%);
+}
+
+@media screen and (min-width: 700px) {
+  .likes {
+    flex-direction: column;
+  }
+
+  .reply {
+    top: 1rem;
+  }
 }
 </style>

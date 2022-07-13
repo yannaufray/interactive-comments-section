@@ -146,6 +146,8 @@ export default {
 .edit {
   cursor: pointer;
   align-self: flex-start;
+  display: flex;
+  gap: 0.5rem;
 }
 
 .delete:hover,
@@ -155,12 +157,14 @@ export default {
 }
 
 .reply {
-  display: flex;
-  align-items: center;
   position: absolute;
   bottom: 1rem;
   right: 1rem;
   display: block;
+}
+
+.reply img {
+  margin-right: 0.5rem;
 }
 
 .you {

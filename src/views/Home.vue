@@ -180,7 +180,7 @@ body {
 }
 
 .comments {
-  max-width: 1200px;
+  max-width: 900px;
 }
 
 .replies {

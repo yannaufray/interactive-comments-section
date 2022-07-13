@@ -14,9 +14,17 @@
     </div>
     <div class="interact">
       <div class="likes">
-        <img src="../assets/images/icon-plus.svg" alt="" />
+        <img
+          src="../assets/images/icon-plus.svg"
+          alt="Plus button"
+          class="btn-plus"
+        />
         <span class="likes-number">{{ comment.score }}</span>
-        <img src="../assets/images/icon-minus.svg" alt="" />
+        <img
+          src="../assets/images/icon-minus.svg"
+          alt="Minus button"
+          class="btn-minus"
+        />
       </div>
       <div
         @click="$emit('reply', comment)"
@@ -97,7 +105,6 @@ export default {
 
 .likes {
   background-color: hsl(228, 33%, 97%);
-  padding: 0.5rem 1rem;
   border-radius: 0.3rem;
 
   display: flex;
@@ -110,6 +117,12 @@ export default {
 .replying-to {
   font-weight: 700;
   color: hsl(238, 40%, 52%);
+}
+
+.btn-plus,
+.btn-minus {
+  cursor: pointer;
+  padding: 0.6rem;
 }
 
 .edit span,

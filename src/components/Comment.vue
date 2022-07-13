@@ -119,6 +119,12 @@ export default {
   color: hsl(238, 40%, 52%);
 }
 
+.pic,
+.likes-number,
+.replying-to {
+  user-select: none;
+}
+
 .btn-plus,
 .btn-minus {
   cursor: pointer;
@@ -159,6 +165,7 @@ export default {
   font-weight: 700;
   background-color: hsl(238, 40%, 52%);
   border-radius: 0.3rem;
+  user-select: none;
 }
 
 .icons-current-user {

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="comments.length">
+  <div v-if="comments.length" class="comments">
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
@@ -175,6 +175,12 @@ export default {
 
 body {
   background-color: hsl(228, 33%, 97%);
+  display: flex;
+  justify-content: center;
+}
+
+.comments {
+  max-width: 1200px;
 }
 
 .replies {

@@ -2,12 +2,14 @@
   <div class="full-comment">
     <div class="likes">
       <img
+        @click="changeLikes(1)"
         src="../assets/images/icon-plus.svg"
         alt="Plus button"
         class="btn-plus"
       />
-      <span class="likes-number">{{ comment.score }}</span>
+      <span class="likes-number">{{ calcLikes }}</span>
       <img
+        @click="changeLikes(-1)"
         src="../assets/images/icon-minus.svg"
         alt="Minus button"
         class="btn-minus"
@@ -56,6 +58,21 @@
 <script>
 export default {
   props: ["comment", "currentUser", "replyingTo"],
+  data() {
+    return {
+      likes: this.comment.score,
+    };
+  },
+  computed: {
+    calcLikes() {
+      return this.likes;
+    },
+  },
+  methods: {
+    changeLikes(num) {
+      this.likes += num;
+    },
+  },
 };
 </script>
 
@@ -161,6 +178,7 @@ export default {
   bottom: 1rem;
   right: 1rem;
   display: block;
+  background-color: red;
 }
 
 .reply img {

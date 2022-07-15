@@ -185,7 +185,6 @@ export default {
   bottom: 1rem;
   right: 1rem;
   display: block;
-  background-color: red;
 }
 
 .reply img {
@@ -221,6 +220,7 @@ export default {
 
   .reply {
     top: 1rem;
+    bottom: initial;
   }
 
   .full-comment {

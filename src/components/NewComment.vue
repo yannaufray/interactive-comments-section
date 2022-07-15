@@ -8,7 +8,7 @@
       ></textarea>
     </div>
     <div class="send">
-      <img src="../assets/images/avatars/image-amyrobson.png" alt="" />
+      <img :src="pic" alt="" />
       <button @click="sendReply" class="btn-send">Send</button>
     </div>
   </div>
@@ -16,11 +16,13 @@
 
 <script>
 export default {
+  props: ["currentUser", "pic"],
   data() {
     return {
       content: "",
     };
   },
+
   methods: {
     sendReply: function () {
       const newReply = {

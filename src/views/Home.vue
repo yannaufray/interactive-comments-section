@@ -12,6 +12,7 @@
         @send="handleSend"
         v-if="replying & (comment.id === replyingId)"
         :currentUser="currentUser"
+        :pic="pic"
       />
 
       <div v-if="comment.replies && comment.replies.length" class="replies">
@@ -27,11 +28,12 @@
             @send="handleSend"
             v-if="replying & (comment.id === replyingId)"
             :currentUser="currentUser"
+            :pic="pic"
           />
         </div>
       </div>
     </div>
-    <NewComment v-if="!replying" @send="handleSend" />
+    <NewComment v-if="!replying" @send="handleSend" :pic="pic" />
   </div>
   <div v-else>Loading...</div>
 </template>
@@ -50,9 +52,11 @@ export default {
       replying: false,
       replyingId: null,
       replyingTo: "",
+      pic: "",
     };
   },
   mounted() {
+    this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
     this.fetchComments();
   },
   methods: {

@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       likes: this.comment.score,
+      initialLlikes: this.comment.score,
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
     };
   },
@@ -71,7 +72,12 @@ export default {
   },
   methods: {
     changeLikes(num) {
-      this.likes += num;
+      if (this.likes + num < 0) return;
+      if (
+        this.likes + num <= this.initialLlikes + 1 &&
+        this.likes + num >= this.initialLlikes - 1
+      )
+        this.likes += num;
     },
   },
 };

@@ -1,21 +1,5 @@
 <template>
   <div class="full-comment">
-    <div class="likes">
-      <img
-        @click="changeLikes(1)"
-        src="../assets/images/icon-plus.svg"
-        alt="Plus button"
-        class="btn-plus"
-      />
-      <span class="likes-number">{{ calcLikes }}</span>
-      <img
-        @click="changeLikes(-1)"
-        src="../assets/images/icon-minus.svg"
-        alt="Minus button"
-        class="btn-minus"
-      />
-    </div>
-
     <div class="content">
       <div class="infos">
         <img :src="pic" alt="" class="pic" />
@@ -32,6 +16,22 @@
         >
         {{ comment.content }}
       </div>
+    </div>
+
+    <div class="likes">
+      <img
+        @click="changeLikes(1)"
+        src="../assets/images/icon-plus.svg"
+        alt="Plus button"
+        class="btn-plus"
+      />
+      <span class="likes-number">{{ calcLikes }}</span>
+      <img
+        @click="changeLikes(-1)"
+        src="../assets/images/icon-minus.svg"
+        alt="Minus button"
+        class="btn-minus"
+      />
     </div>
 
     <div
@@ -91,6 +91,9 @@ export default {
   border-radius: 0.3rem;
   position: relative;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
   gap: 1rem;
 }
 
@@ -100,8 +103,8 @@ export default {
 
   display: flex;
   align-items: center;
+  align-self: flex-start; /* Prevents from stretching */
   justify-content: space-between;
-  align-self: center; /* Prevents from stretching vertically */
   gap: 0.5rem;
 }
 
@@ -203,6 +206,9 @@ export default {
 .icons-current-user {
   display: flex;
   gap: 1rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 }
 
 .edit span {
@@ -214,8 +220,13 @@ export default {
 }
 
 @media screen and (min-width: 700px) {
+  .full-comment {
+    flex-direction: row-reverse;
+  }
+
   .likes {
     flex-direction: column;
+    align-self: center;
   }
 
   .reply {
@@ -223,8 +234,9 @@ export default {
     bottom: initial;
   }
 
-  .full-comment {
-    flex-direction: row;
+  .icons-current-user {
+    top: 1rem;
+    bottom: initial;
   }
 }
 </style>

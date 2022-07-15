@@ -18,7 +18,7 @@
 
     <div class="content">
       <div class="infos">
-        <img src="" alt="" class="pic" />
+        <img :src="pic" alt="" class="pic" />
         <h3 class="username">{{ comment.user.username }}</h3>
         <span v-if="comment.user.username === currentUser" class="you"
           >you</span
@@ -61,6 +61,7 @@ export default {
   data() {
     return {
       likes: this.comment.score,
+      pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
     };
   },
   computed: {

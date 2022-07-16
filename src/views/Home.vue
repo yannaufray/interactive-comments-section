@@ -144,15 +144,14 @@ export default {
         });
       }
 
-      fetch(`http://localhost:5000/comments/${comment.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
-
       // If it's in the normal flow, just remove the comment
       if (!isReply) {
+        fetch(`http://localhost:5000/comments/${comment.id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-type": "application/json",
+          },
+        });
         this.comments = this.comments.filter((el) => el.id !== id);
       } else {
         const indexMotherCom = this.comments.findIndex(
@@ -160,6 +159,13 @@ export default {
         );
         const indexEl = this.comments[indexMotherCom].replies.indexOf(comment);
         this.comments[indexMotherCom].replies.splice(indexEl, 1);
+        fetch(`http://localhost:5000/comments/${motherCom.id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(this.comments[indexMotherCom]),
+        });
       }
     },
   },

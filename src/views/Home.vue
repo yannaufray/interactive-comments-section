@@ -93,7 +93,13 @@ export default {
 
       if (!this.replying) {
         this.comments.push(reply);
-        console.log(this.comments);
+        await fetch("http://localhost:5000/comments/", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify(reply),
+        });
       }
 
       this.replying = false;

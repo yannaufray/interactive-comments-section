@@ -81,10 +81,12 @@ export default {
     changeLikes(num) {
       if (this.likes + num < 0) return;
       if (
-        this.likes + num <= this.initialLlikes + 1 &&
-        this.likes + num >= this.initialLlikes - 1
+        this.likes + num > this.initialLlikes + 1 ||
+        this.likes + num < this.initialLlikes - 1
       )
-        this.likes += num;
+        return;
+
+      this.likes += num;
 
       if (this.likes === this.initialLlikes + 1) this.plusIsActive = true;
       if (this.likes === this.initialLlikes - 1) this.minusIsActive = true;

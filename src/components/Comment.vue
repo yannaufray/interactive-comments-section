@@ -79,12 +79,18 @@ export default {
   },
   methods: {
     changeLikes(num) {
+      // Likes can't go under 0
       if (this.likes + num < 0) return;
+
+      // Can vote only once
       if (
         this.likes + num > this.initialLlikes + 1 ||
         this.likes + num < this.initialLlikes - 1
       )
         return;
+
+      // Can't change your own likes
+      if (this.comment.user.username === this.currentUser) return;
 
       this.likes += num;
 

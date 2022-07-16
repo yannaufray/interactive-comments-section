@@ -125,46 +125,44 @@ export default {
       this.fetchComments();
     },
     handleDelete: async function (id) {
-      let commentReplied = {};
-      let commentRepliedId = null;
-      await fetch("http://localhost:5000/comments/").then((res) =>
-        res
-          .json()
-          .then((data) => {
-            commentReplied = data.find((el) =>
-              el.replies.find((el2) => el2.id === id)
-            );
-            commentRepliedId = commentReplied.id;
-            commentReplied.replies = commentReplied.replies.filter(
-              (el) => el.id !== id
-            );
-          })
-          .then(() => {
-            fetch(`http://localhost:5000/comments/${commentRepliedId}`, {
-              method: "PATCH",
-              headers: {
-                "Content-type": "application/json",
-              },
-              body: JSON.stringify(commentReplied),
-            });
-            this.fetchComments();
-          })
-      );
+      const res = await fetch("http://localhost:5000/comments/");
+      const comments = await res.json();
+
+      let comment = comments.find((com) => com.id === id);
+
+      let isReply = false;
+      let motherCom = null;
+      if (!comment) {
+        isReply = true;
+        comments.map((el) => {
+          el.replies.map((el2) => {
+            if (el2.id === id) {
+              comment = el2;
+              motherCom = el;
+            }
+          });
+        });
+      }
+
+      fetch(`http://localhost:5000/comments/${comment.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+
+      // If it's in the normal flow, just remove the comment
+      if (!isReply) {
+        this.comments = this.comments.filter((el) => el.id !== id);
+      } else {
+        const indexMotherCom = this.comments.findIndex(
+          (el) => el.id === motherCom.id
+        );
+        const indexEl = this.comments[indexMotherCom].replies.indexOf(comment);
+        this.comments[indexMotherCom].replies.splice(indexEl, 1);
+      }
     },
   },
-
-  // setup() {
-  //   let comments = ref([]);
-
-  //   onMounted(() => {
-  //     fetch("http://localhost:5000/comments")
-  //       .then((res) => res.json())
-  //       .then((data) => (comments = data))
-  //       .catch((err) => console.log(err.message));
-  //   });
-
-  //   return { comments };
-  // },
 };
 </script>
 

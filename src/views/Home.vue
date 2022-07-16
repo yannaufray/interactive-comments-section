@@ -1,5 +1,6 @@
 <template>
-  <div v-if="comments.length" class="comments">
+  <div v-if="!comments.length">Loading...</div>
+  <div v-else class="comments">
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
@@ -10,7 +11,7 @@
       />
       <NewComment
         @send="handleSend"
-        v-if="replying & (comment.id === replyingId)"
+        v-if="replying && comment.id === replyingId"
         :currentUser="currentUser"
         :pic="pic"
       />
@@ -26,7 +27,7 @@
           />
           <NewComment
             @send="handleSend"
-            v-if="replying & (comment.id === replyingId)"
+            v-if="replying && comment.id === replyingId"
             :currentUser="currentUser"
             :pic="pic"
           />
@@ -35,7 +36,6 @@
     </div>
     <NewComment v-if="!replying" @send="handleSend" :pic="pic" />
   </div>
-  <div v-else>Loading...</div>
 </template>
 
 <script>
@@ -80,7 +80,7 @@ export default {
         id: Math.floor(Math.random() * 100000),
         content: content,
         createdAt: new Date(),
-        score: 0,
+        score: 1,
         replyingTo: this.replyingTo,
         user: {
           image: {
@@ -91,38 +91,12 @@ export default {
         },
       };
 
-      // Si on répond à un post (replying = true), on fetch le post, sinon on fetch tous les commentaires
-      const currentPostRes = this.replying
-        ? await fetch(`http://localhost:5000/comments/${this.replyingId}`)
-        : await fetch("http://localhost:5000/comments/");
-      const currentPost = await currentPostRes.json();
-      console.log(currentPost);
-
-      // Marcherait ?
-      // currentPost.replies = [...currentPost.replies, reply];
-      if (currentPost.replies) {
-        currentPost.replies.push(reply);
-      } else {
-        currentPost.replies = [reply];
+      if (!this.replying) {
+        this.comments.push(reply);
+        console.log(this.comments);
       }
 
-      await fetch(
-        this.replying
-          ? `http://localhost:5000/comments/${this.replyingId}`
-          : "http://localhost:5000/comments/",
-        {
-          method: this.replying ? "PATCH" : "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(currentPost),
-        }
-      );
-
-      // Toggling off the new comment input box
-      this.replying = !this.replying;
-      // Fetching comments with the new one
-      this.fetchComments();
+      this.replying = false;
     },
     handleDelete: async function (id) {
       const res = await fetch("http://localhost:5000/comments/");

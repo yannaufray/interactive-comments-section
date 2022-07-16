@@ -253,6 +253,7 @@ export default {
 @media screen and (min-width: 700px) {
   .full-comment {
     flex-direction: row-reverse;
+    justify-content: flex-end;
   }
 
   .likes {

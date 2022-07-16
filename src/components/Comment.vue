@@ -24,6 +24,7 @@
         src="../assets/images/icon-plus.svg"
         alt="Plus button"
         class="btn-plus"
+        :class="{ active: plusIsActive, inactive: !plusIsActive }"
       />
       <span class="likes-number">{{ calcLikes }}</span>
       <img
@@ -31,6 +32,10 @@
         src="../assets/images/icon-minus.svg"
         alt="Minus button"
         class="btn-minus"
+        :class="{
+          active: minusIsActive,
+          inactive: !minusIsActive,
+        }"
       />
     </div>
 
@@ -63,6 +68,8 @@ export default {
       likes: this.comment.score,
       initialLlikes: this.comment.score,
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
+      minusIsActive: false,
+      plusIsActive: false,
     };
   },
   computed: {
@@ -78,6 +85,13 @@ export default {
         this.likes + num >= this.initialLlikes - 1
       )
         this.likes += num;
+
+      if (this.likes === this.initialLlikes + 1) this.plusIsActive = true;
+      if (this.likes === this.initialLlikes - 1) this.minusIsActive = true;
+      if (this.likes === this.initialLlikes) {
+        this.minusIsActive = false;
+        this.plusIsActive = false;
+      }
     },
   },
 };
@@ -166,6 +180,16 @@ export default {
 .btn-minus {
   cursor: pointer;
   padding: 0.6rem;
+}
+
+.inactive {
+  filter: invert(82%) sepia(9%) saturate(941%) hue-rotate(201deg)
+    brightness(99%) contrast(88%);
+}
+
+.active {
+  filter: invert(21%) sepia(94%) saturate(1589%) hue-rotate(226deg)
+    brightness(104%) contrast(92%);
 }
 
 .edit span,

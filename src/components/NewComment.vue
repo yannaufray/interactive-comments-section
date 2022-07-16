@@ -25,10 +25,7 @@ export default {
 
   methods: {
     sendReply: function () {
-      const newReply = {
-        content: this.content,
-      };
-      this.$emit("send", newReply);
+      this.$emit("send", this.content);
     },
   },
 };

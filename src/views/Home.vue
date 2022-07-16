@@ -75,17 +75,17 @@ export default {
       this.replyingTo = commentToBeReplied.replyingTo;
     },
 
-    handleSend: async function (newReply) {
+    handleSend: async function (content) {
       const reply = {
         id: Math.floor(Math.random() * 100000),
-        content: newReply.content,
+        content: content,
         createdAt: new Date(),
         score: 0,
         replyingTo: this.replyingTo,
         user: {
           image: {
-            png: "../assets/images/avatars/image-juliusomo.png",
-            webp: "../assets/images/avatars/image-juliusomo.webp",
+            png: `../assets/images/avatars/image-${this.currentUser}.png`,
+            webp: `../assets/images/avatars/image-${this.currentUser}.webp`,
           },
           username: this.currentUser,
         },

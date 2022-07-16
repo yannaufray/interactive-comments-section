@@ -153,7 +153,12 @@ export default {
 
 .pic,
 .likes-number,
-.replying-to {
+.replying-to,
+.btn-plus,
+.btn-minus,
+.delete,
+.reply,
+.edit {
   user-select: none;
 }
 

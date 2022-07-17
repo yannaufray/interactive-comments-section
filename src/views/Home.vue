@@ -92,7 +92,10 @@ export default {
       };
 
       if (!this.replying) {
+        // Updating the DOM
         this.comments.push(reply);
+
+        // Posting the new data
         await fetch("http://localhost:5000/comments/", {
           method: "POST",
           headers: {
@@ -101,10 +104,25 @@ export default {
           body: JSON.stringify(reply),
         });
       } else {
-        const comId = this.comments.findIndex(
+        // Updating the DOM
+        const comIndex = this.comments.findIndex(
           (com) => com.id === this.replyingId
         );
-        this.comments[comId].replies.push(reply);
+        this.comments[comIndex].replies.push(reply);
+
+        // Updating the data with one more reply
+        await fetch(
+          `http://localhost:5000/comments/${this.comments[comIndex].id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify(this.comments[comIndex]),
+          }
+        );
+
+        // Resetting the new comment box
         this.replying = false;
       }
     },

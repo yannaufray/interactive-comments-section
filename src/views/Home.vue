@@ -137,13 +137,14 @@ export default {
     handleDelete: function (id) {
       this.modalVisible = true;
       this.idToBeDeleted = id;
-      console.log(id);
     },
     deleteComment: async function (id) {
       this.modalVisible = false;
 
-      let comment = this.comments.find((com) => com.id === id);
       const isReply = !this.comments.some((el) => el.id === id);
+      let comment = isReply
+        ? console.log("Must find comment here")
+        : this.comments.find((com) => com.id === id);
 
       if (!isReply) {
         fetch(`http://localhost:5000/comments/${comment.id}`, {
@@ -161,7 +162,7 @@ export default {
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify(this.comments[indexComment]),
+          body: JSON.stringify(comment),
         });
       }
     },

@@ -100,9 +100,13 @@ export default {
           },
           body: JSON.stringify(reply),
         });
+      } else {
+        const comId = this.comments.findIndex(
+          (com) => com.id === this.replyingId
+        );
+        this.comments[comId].replies.push(reply);
+        this.replying = false;
       }
-
-      this.replying = false;
     },
     handleDelete: async function (id) {
       const res = await fetch("http://localhost:5000/comments/");

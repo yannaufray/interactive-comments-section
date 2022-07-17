@@ -1,4 +1,5 @@
 <template>
+  <Profiles @profile-changed="changeProfile" />
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">
     <div v-for="comment in comments" :key="comment.id">
@@ -40,11 +41,12 @@
 
 <script>
 import Comment from "../components/Comment.vue";
+import Profiles from "../components/Profiles.vue";
 import NewComment from "../components/NewComment.vue";
 
 export default {
   name: "Home",
-  components: { Comment, NewComment },
+  components: { Comment, Profiles, NewComment },
   data() {
     return {
       comments: [],
@@ -169,6 +171,9 @@ export default {
           body: JSON.stringify(this.comments[indexMotherCom]),
         });
       }
+    },
+    changeProfile: function (profile) {
+      this.currentUser = profile.name;
     },
   },
 };

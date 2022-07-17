@@ -22,7 +22,6 @@ export default {
       content: "",
     };
   },
-
   methods: {
     sendReply: function () {
       this.$emit("send", this.content);

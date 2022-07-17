@@ -1,7 +1,7 @@
 <template>
-  <Profiles @profile-changed="changeProfile" />
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">
+    <Profiles @profile-changed="changeProfile" :currentUser="currentUser" />
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
@@ -174,6 +174,8 @@ export default {
     },
     changeProfile: function (profile) {
       this.currentUser = profile.name;
+      this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
+      this.replying = false;
     },
   },
 };

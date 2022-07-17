@@ -2,6 +2,7 @@
   <div class="container">
     <div class="profile" v-for="profile in profiles" :key="profile">
       <img
+        :class="{ 'not-current': currentUser !== profile.name }"
         @click="$emit('profile-changed', profile)"
         :src="profile.pic"
         alt=""
@@ -12,6 +13,7 @@
 
 <script>
 export default {
+  props: { currentUser: String },
   data() {
     return {
       profiles: [
@@ -42,5 +44,9 @@ export default {
 .profile {
   margin-bottom: 1rem;
   cursor: pointer;
+}
+
+.not-current {
+  opacity: 0.7;
 }
 </style>

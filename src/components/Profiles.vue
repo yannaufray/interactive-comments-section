@@ -36,17 +36,34 @@ export default {
 
 <style scoped>
 .container {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .profile {
-  margin-bottom: 1rem;
   cursor: pointer;
 }
 
 .not-current {
   opacity: 0.7;
+}
+
+/* @media screen and (min-width: 700px) {
+  .container {
+    bottom: 2rem;
+    right: 2rem;
+  }
+} */
+
+@media screen and (min-width: 1440px) {
+  .container {
+    position: absolute;
+    flex-direction: column;
+    margin-top: 0;
+    top: 2rem;
+    right: 2rem;
+  }
 }
 </style>

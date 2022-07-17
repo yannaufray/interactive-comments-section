@@ -1,4 +1,7 @@
 <template>
+  <Teleport to="body">
+    <Modal @delete="deleteComment(idToBeDeleted)" v-if="modalVisible" />
+  </Teleport>
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">
     <Profiles @profile-changed="changeProfile" :currentUser="currentUser" />
@@ -43,10 +46,11 @@
 import Comment from "../components/Comment.vue";
 import Profiles from "../components/Profiles.vue";
 import NewComment from "../components/NewComment.vue";
+import Modal from "../components/Modal.vue";
 
 export default {
   name: "Home",
-  components: { Comment, Profiles, NewComment },
+  components: { Comment, Profiles, NewComment, Modal },
   data() {
     return {
       comments: [],
@@ -55,6 +59,8 @@ export default {
       replyingId: null,
       replyingTo: "",
       pic: "",
+      modalVisible: false,
+      idToBeDeleted: null,
     };
   },
   mounted() {
@@ -128,7 +134,13 @@ export default {
         this.replying = false;
       }
     },
-    handleDelete: async function (id) {
+    handleDelete: function (id) {
+      this.modalVisible = true;
+      this.idToBeDeleted = id;
+    },
+    deleteComment: async function (id) {
+      this.modalVisible = false;
+
       const res = await fetch("http://localhost:5000/comments/");
       const comments = await res.json();
 
@@ -175,7 +187,6 @@ export default {
     changeProfile: function (profile) {
       this.currentUser = profile.name;
       this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
-      this.replying = false;
     },
   },
 };

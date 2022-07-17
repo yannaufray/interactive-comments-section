@@ -137,30 +137,14 @@ export default {
     handleDelete: function (id) {
       this.modalVisible = true;
       this.idToBeDeleted = id;
+      console.log(id);
     },
     deleteComment: async function (id) {
       this.modalVisible = false;
 
-      const res = await fetch("http://localhost:5000/comments/");
-      const comments = await res.json();
+      let comment = this.comments.find((com) => com.id === id);
+      const isReply = !this.comments.some((el) => el.id === id);
 
-      let comment = comments.find((com) => com.id === id);
-
-      let isReply = false;
-      let motherCom = null;
-      if (!comment) {
-        isReply = true;
-        comments.map((el) => {
-          el.replies.map((el2) => {
-            if (el2.id === id) {
-              comment = el2;
-              motherCom = el;
-            }
-          });
-        });
-      }
-
-      // If it's in the normal flow, just remove the comment
       if (!isReply) {
         fetch(`http://localhost:5000/comments/${comment.id}`, {
           method: "DELETE",
@@ -170,17 +154,14 @@ export default {
         });
         this.comments = this.comments.filter((el) => el.id !== id);
       } else {
-        const indexMotherCom = this.comments.findIndex(
-          (el) => el.id === motherCom.id
-        );
-        const indexEl = this.comments[indexMotherCom].replies.indexOf(comment);
-        this.comments[indexMotherCom].replies.splice(indexEl, 1);
-        fetch(`http://localhost:5000/comments/${motherCom.id}`, {
+        console.log(this.replyingId);
+
+        fetch(`http://localhost:5000/comments/${this.replyingId}`, {
           method: "PATCH",
           headers: {
             "Content-type": "application/json",
           },
-          body: JSON.stringify(this.comments[indexMotherCom]),
+          body: JSON.stringify(this.comments[indexComment]),
         });
       }
     },

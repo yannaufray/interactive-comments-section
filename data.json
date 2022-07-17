@@ -19,7 +19,21 @@
         },
         "username": "amyrobson"
       },
-      "replies": []
+      "replies": [
+        {
+          "id": 10429,
+          "content": "azf",
+          "createdAt": "2022-07-17T19:44:01.793Z",
+          "score": 1,
+          "user": {
+            "image": {
+              "png": "../assets/images/avatars/image-juliusomo.png",
+              "webp": "../assets/images/avatars/image-juliusomo.webp"
+            },
+            "username": "juliusomo"
+          }
+        }
+      ]
     },
     {
       "id": 2,

@@ -7,7 +7,7 @@
         <span v-if="comment.user.username === currentUser" class="you"
           >you</span
         >
-        <span class="date">{{ comment.createdAt }}</span>
+        <span class="date">{{ formattedDate }}</span>
       </div>
 
       <div class="text">
@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { formatDistanceToNow } from "date-fns";
+
 export default {
   props: ["comment", "currentUser", "replyingTo"],
   data() {
@@ -75,6 +77,10 @@ export default {
   computed: {
     calcLikes() {
       return this.likes;
+    },
+    formattedDate() {
+      const date = new Date(this.comment.createdAt);
+      return formatDistanceToNow(date, { addSuffix: true });
     },
   },
   methods: {

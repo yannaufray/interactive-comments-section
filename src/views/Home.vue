@@ -1,6 +1,10 @@
 <template>
   <Teleport to="body">
-    <Modal @delete="deleteComment(idToBeDeleted)" v-if="modalVisible" />
+    <Modal
+      @delete="deleteComment(idToBeDeleted)"
+      @cancel="this.modalVisible = false"
+      v-if="modalVisible"
+    />
   </Teleport>
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">

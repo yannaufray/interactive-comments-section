@@ -10,11 +10,15 @@
         <span class="date">{{ formattedDate }}</span>
       </div>
 
-      <div class="text">
+      <div v-if="!isEditing" class="text">
         <span v-if="comment.replyingTo" class="replying-to"
           >@{{ comment.replyingTo }}</span
         >
         {{ comment.content }}
+      </div>
+      <div v-else>
+        <textarea v-model="comment.content" class="edit-area"></textarea>
+        <button @click="sendUpdate" class="btn-update">Update</button>
       </div>
     </div>
 
@@ -52,7 +56,7 @@
         <img src="../assets/images/icon-delete.svg" alt="" />
         <span>Delete</span>
       </div>
-      <div class="edit">
+      <div @click="handleEdit(comment)" class="edit">
         <img src="../assets/images/icon-edit.svg" alt="" />
         <span>Edit</span>
       </div>
@@ -72,6 +76,7 @@ export default {
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
       minusIsActive: false,
       plusIsActive: false,
+      isEditing: false,
     };
   },
   computed: {
@@ -106,6 +111,10 @@ export default {
         this.minusIsActive = false;
         this.plusIsActive = false;
       }
+    },
+    handleEdit(com) {
+      this.isEditing = !this.isEditing;
+      console.log(this.comment.content, com.content);
     },
   },
 };
@@ -260,6 +269,13 @@ export default {
 
 .delete span {
   color: hsl(358, 79%, 66%);
+}
+
+.edit-area {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  padding: 0.6rem 0.8rem;
 }
 
 @media screen and (min-width: 700px) {

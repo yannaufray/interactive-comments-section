@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .new-comment {
   margin: 1rem;
   background-color: white;
@@ -66,20 +66,5 @@ export default {
 .send img {
   width: 2rem;
   height: 2rem;
-}
-
-.btn-send {
-  padding: 0.8rem 1.5rem;
-  background-color: hsl(238, 40%, 52%);
-  border-radius: 0.5rem;
-  color: white;
-  text-transform: uppercase;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-send:hover {
-  opacity: 0.7;
 }
 </style>

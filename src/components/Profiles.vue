@@ -52,7 +52,7 @@ export default {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-top: 2rem;
+  margin: 3rem 0;
 }
 
 .profile {
@@ -60,11 +60,12 @@ export default {
 }
 
 .not-current {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .message {
   color: hsl(238, 40%, 52%);
+  font-family: "Rubik", sans-serif;
   font-weight: 700;
   position: absolute;
   left: 1rem;

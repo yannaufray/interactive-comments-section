@@ -118,10 +118,10 @@ export default {
   padding: 1rem;
   border-radius: 0.3rem;
   position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-
   gap: 1rem;
 }
 

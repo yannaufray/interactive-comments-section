@@ -8,7 +8,7 @@
       ></textarea>
     </div>
     <div class="send">
-      <img :src="pic" alt="" />
+      <img :src="pic" alt="Profile pic" />
       <button @click="sendReply" class="btn-send">Send</button>
     </div>
   </div>

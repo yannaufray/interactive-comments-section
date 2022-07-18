@@ -17,7 +17,7 @@
         {{ comment.content }}
       </div>
       <div v-else>
-        <textarea v-model="comment.content" class="edit-area"></textarea>
+        <textarea class="edit-area" v-model="comment.content"></textarea>
         <button @click="sendUpdate" class="btn-update">Update</button>
       </div>
     </div>
@@ -272,10 +272,17 @@ export default {
 }
 
 .edit-area {
+  margin: 1rem;
+  border-radius: 0.3rem;
   width: 100%;
-  height: 100%;
+  padding: 1rem 1rem 2.5rem;
+  border: 0.1rem solid hsl(223, 19%, 93%);
   resize: none;
-  padding: 0.6rem 0.8rem;
+}
+
+.edit-area:focus {
+  outline: none;
+  border: 0.1rem solid hsl(238, 40%, 52%);
 }
 
 @media screen and (min-width: 700px) {

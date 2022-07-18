@@ -161,7 +161,7 @@ export default {
         this.comments = this.comments.filter((el) => el.id !== id);
       } else {
         const toDeletedId = comment.replies.filter((el) => el.id === id);
-        comment.replies.splice(toDeletedId, 1);
+        comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
         fetch(`http://localhost:5000/comments/${comment.id}`, {
           method: "PATCH",
           headers: {

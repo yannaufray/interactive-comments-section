@@ -25,6 +25,7 @@ export default {
   methods: {
     sendReply: function () {
       this.$emit("send", this.content);
+      this.content = "";
     },
   },
 };

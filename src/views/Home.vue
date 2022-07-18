@@ -142,8 +142,13 @@ export default {
       this.modalVisible = false;
 
       const isReply = !this.comments.some((el) => el.id === id);
+
+      // If is reply, returns mother comment to patch
+      // Else returns comment to delete
       let comment = isReply
-        ? console.log("Must find comment here")
+        ? this.comments.find((com) =>
+            com.replies.some((reply) => reply.id === id)
+          )
         : this.comments.find((com) => com.id === id);
 
       if (!isReply) {
@@ -155,9 +160,9 @@ export default {
         });
         this.comments = this.comments.filter((el) => el.id !== id);
       } else {
-        console.log(this.replyingId);
-
-        fetch(`http://localhost:5000/comments/${this.replyingId}`, {
+        const toDeletedId = comment.replies.filter((el) => el.id === id);
+        comment.replies.splice(toDeletedId, 1);
+        fetch(`http://localhost:5000/comments/${comment.id}`, {
           method: "PATCH",
           headers: {
             "Content-type": "application/json",

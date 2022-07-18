@@ -1,4 +1,9 @@
 <template>
+  <Teleport to="body">
+    <span v-show="userChanging" class="message"
+      >Current user is now {{ currentUser }}</span
+    >
+  </Teleport>
   <div class="container">
     <div class="profile" v-for="profile in profiles" :key="profile">
       <img
@@ -23,9 +28,17 @@ export default {
         { name: "juliusomo", pic: "" },
       ],
       pics: [],
+      userChanging: false,
     };
   },
-
+  watch: {
+    currentUser() {
+      this.userChanging = true;
+      setTimeout(() => {
+        this.userChanging = false;
+      }, 1000);
+    },
+  },
   mounted() {
     this.profiles.map((profile) => {
       profile.pic = require(`../assets/images/avatars/image-${profile.name}.png`);
@@ -39,7 +52,7 @@ export default {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 .profile {
@@ -50,12 +63,13 @@ export default {
   opacity: 0.7;
 }
 
-/* @media screen and (min-width: 700px) {
-  .container {
-    bottom: 2rem;
-    right: 2rem;
-  }
-} */
+.message {
+  color: hsl(238, 40%, 52%);
+  font-weight: 700;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+}
 
 @media screen and (min-width: 1440px) {
   .container {

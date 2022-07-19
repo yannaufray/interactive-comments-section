@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Modal
-      @delete="deleteComment(idToBeDeleted)"
+      @delete="handleDelete(idToBeDeleted)"
       @cancel="this.modalVisible = false"
       v-if="modalVisible"
     />
@@ -12,7 +12,7 @@
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
-        @delete="handleDelete"
+        @delete="displayDeleteModal"
         :comment="comment"
         :currentUser="currentUser"
         :replyingTo="replyingTo"
@@ -28,7 +28,7 @@
         <div v-for="comment in comment.replies" :key="comment.id">
           <Comment
             @reply="handleReply"
-            @delete="handleDelete"
+            @delete="displayDeleteModal"
             :comment="comment"
             :currentUser="currentUser"
             :replyingTo="replyingTo"
@@ -144,42 +144,45 @@ export default {
       // Resetting the new comment box
       this.replying = false;
     },
-    handleDelete: function (id) {
+    displayDeleteModal: function (id) {
       this.modalVisible = true;
       this.idToBeDeleted = id;
     },
-    deleteComment: async function (id) {
+    handleDelete: async function (id) {
       this.modalVisible = false;
 
       const isReply = !this.comments.some((el) => el.id === id);
 
-      // If is reply, returns mother comment to patch
-      // Else returns comment to delete
-      let comment = isReply
-        ? this.comments.find((com) =>
-            com.replies.some((reply) => reply.id === id)
-          )
-        : this.comments.find((com) => com.id === id);
-
       if (!isReply) {
-        fetch(`http://localhost:5000/comments/${comment.id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-          },
-        });
-        this.comments = this.comments.filter((el) => el.id !== id);
+        this.deleteComment(id);
       } else {
-        const toDeletedId = comment.replies.filter((el) => el.id === id);
-        comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
-        fetch(`http://localhost:5000/comments/${comment.id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(comment),
-        });
+        this.deleteReplyToComment(id);
       }
+    },
+    deleteComment: async function (id) {
+      const comment = this.comments.find((com) => com.id === id);
+
+      fetch(`http://localhost:5000/comments/${comment.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      this.comments = this.comments.filter((el) => el.id !== id);
+    },
+    deleteReplyToComment: async function (id) {
+      const comment = this.comments.find((com) =>
+        com.replies.some((reply) => reply.id === id)
+      );
+      const toDeletedId = comment.replies.filter((el) => el.id === id);
+      comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
+      fetch(`http://localhost:5000/comments/${comment.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(comment),
+      });
     },
     changeProfile: function (profile) {
       this.currentUser = profile.name;

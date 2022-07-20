@@ -8,7 +8,10 @@
   </Teleport>
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">
-    <Profiles @profile-changed="changeProfile" :currentUser="currentUser" />
+    <Profiles
+      @profile-changed="changeCurrentProfile"
+      :currentUser="currentUser"
+    />
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
@@ -179,7 +182,7 @@ export default {
         body: JSON.stringify(comment),
       });
     },
-    changeProfile: function (profile) {
+    changeCurrentProfile: function (profile) {
       this.currentUser = profile.name;
       this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
     },

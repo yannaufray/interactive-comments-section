@@ -130,16 +130,7 @@ export default {
       this.comments[comIndex].replies.push(reply);
 
       // Updating the data with one more reply
-      await fetch(
-        `http://localhost:5000/comments/${this.comments[comIndex].id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(this.comments[comIndex]),
-        }
-      );
+      this.patchComment(this.comments[comIndex]);
 
       // Resetting the new comment box
       this.replying = false;
@@ -176,6 +167,10 @@ export default {
       );
       const toDeletedId = comment.replies.filter((el) => el.id === id);
       comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
+
+      this.patchComment(comment);
+    },
+    patchComment: function (comment) {
       fetch(`http://localhost:5000/comments/${comment.id}`, {
         method: "PATCH",
         headers: {

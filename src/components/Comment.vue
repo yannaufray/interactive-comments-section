@@ -28,7 +28,7 @@
         src="../assets/images/icon-plus.svg"
         alt="Plus button"
         class="btn-plus"
-        :class="{ active: plusIsActive, inactive: !plusIsActive }"
+        :class="{ active: plusIsActive }"
       />
       <span class="likes-number">{{ calcLikes }}</span>
       <img
@@ -38,7 +38,6 @@
         class="btn-minus"
         :class="{
           active: minusIsActive,
-          inactive: !minusIsActive,
         }"
       />
     </div>
@@ -203,9 +202,6 @@ export default {
 .btn-minus {
   cursor: pointer;
   padding: 0.6rem;
-}
-
-.inactive {
   filter: invert(82%) sepia(9%) saturate(941%) hue-rotate(201deg)
     brightness(99%) contrast(88%);
 }

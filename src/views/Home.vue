@@ -87,7 +87,7 @@ export default {
       // Setting id to display input box bellow the right comment
       this.replyingId = commentToBeReplied.id;
       // Setting replyingTo to get the @username tag
-      this.replyingTo = commentToBeReplied.replyingTo;
+      this.replyingTo = commentToBeReplied.user.username;
     },
 
     handleSend: async function (content) {

@@ -135,8 +135,9 @@ export default {
       // Updating the data with one more reply
       this.patchComment(this.comments[comIndex]);
 
-      // Resetting the new comment box
+      // Resets
       this.replying = false;
+      this.replyingTo = undefined;
     },
     displayDeleteModal: function (id) {
       this.modalVisible = true;

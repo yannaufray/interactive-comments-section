@@ -4,8 +4,7 @@
       @delete="handleDelete(idToBeDeleted)"
       @cancel="this.modalVisible = false"
       v-if="modalVisible"
-    />
-  </Teleport>
+  /></Teleport>
   <div v-if="!comments.length">Loading...</div>
   <div v-else class="comments">
     <Profiles
@@ -192,20 +191,6 @@ export default {
 </script>
 
 <style>
-* {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background-color: hsl(228, 33%, 97%);
-  display: flex;
-  justify-content: center;
-}
-
 .comments {
   max-width: 900px;
 }

@@ -6,4 +6,18 @@
 #app {
   font-family: "Rubik", sans-serif;
 }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: hsl(228, 33%, 97%);
+  display: flex;
+  justify-content: center;
+}
 </style>

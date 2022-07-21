@@ -1,5 +1,6 @@
 <template>
   <div class="overlay"></div>
+
   <div class="container">
     <div class="modal">
       <h3>Delete comment</h3>
@@ -20,14 +21,6 @@ export default {};
 </script>
 
 <style scoped>
-.overlay {
-  background-color: black;
-  opacity: 0.3;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-
 .container {
   display: flex;
   justify-content: center;
@@ -36,12 +29,44 @@ export default {};
   position: absolute;
 }
 
+.overlay {
+  background-color: black;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  animation: overlay 0.2s;
+  opacity: 0.3;
+}
+
+@keyframes overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+
 .modal {
   background-color: white;
   padding: 1.3rem 1rem;
   width: 25rem;
   border-radius: 0.3rem;
   font-family: "Rubik", sans-serif;
+  animation: modal 0.2s;
+}
+
+@keyframes modal {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .text {

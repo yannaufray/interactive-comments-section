@@ -37,7 +37,11 @@ export default {
   },
   watch: {
     currentUser() {
-      this.userChanging = true;
+      // This delay will get the message syncronized with the "bump"
+      setTimeout(() => {
+        this.userChanging = true;
+      }, 100);
+
       setTimeout(() => {
         this.userChanging = false;
       }, 1000);
@@ -75,6 +79,7 @@ export default {
   }
   to {
     opacity: 1;
+    transform: translateY(-0.5rem);
   }
 }
 

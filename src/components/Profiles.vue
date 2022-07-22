@@ -5,9 +5,13 @@
     >
   </Teleport>
   <div class="container">
-    <div class="profile" v-for="profile in profiles" :key="profile">
+    <div
+      :class="{ current: currentUser === profile.name }"
+      class="profile"
+      v-for="profile in profiles"
+      :key="profile"
+    >
       <img
-        :class="{ 'not-current': currentUser !== profile.name }"
         @click="$emit('profile-changed', profile)"
         :src="profile.pic"
         alt=""
@@ -57,10 +61,21 @@ export default {
 
 .profile {
   cursor: pointer;
+  opacity: 0.5;
 }
 
-.not-current {
-  opacity: 0.5;
+.current {
+  opacity: 1;
+  animation: current 0.1s;
+}
+
+@keyframes current {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .message {

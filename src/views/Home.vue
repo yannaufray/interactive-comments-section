@@ -108,11 +108,9 @@ export default {
         },
       };
 
-      if (!this.replying) {
-        this.addNewComment(reply);
-      } else {
-        this.addReplyToComment(reply);
-      }
+      !this.replying
+        ? this.addNewComment(reply)
+        : this.addReplyToComment(reply);
     },
     addNewComment: async function (reply) {
       // Updating the DOM
@@ -150,11 +148,7 @@ export default {
 
       const isReply = !this.comments.some((el) => el.id === id);
 
-      if (!isReply) {
-        this.deleteComment(id);
-      } else {
-        this.deleteReplyToComment(id);
-      }
+      !isReply ? this.deleteComment(id) : this.deleteReplyToComment(id);
     },
     deleteComment: async function (id) {
       const comment = this.comments.find((com) => com.id === id);

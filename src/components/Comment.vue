@@ -1,4 +1,9 @@
 <template>
+  <Teleport to="body">
+    <span v-show="changingOwnLikes" class="message"
+      >You can't change your own comments' likes.</span
+    >
+  </Teleport>
   <div class="full-comment">
     <div class="content">
       <div class="infos">
@@ -89,6 +94,7 @@ export default {
       minusIsActive: false,
       plusIsActive: false,
       isEditing: false,
+      changingOwnLikes: false,
     };
   },
   computed: {
@@ -113,7 +119,13 @@ export default {
         return;
 
       // Can't change your own likes
-      if (this.comment.user.username === this.currentUser) return;
+      if (this.comment.user.username === this.currentUser) {
+        this.changingOwnLikes = true;
+        setTimeout(() => {
+          this.changingOwnLikes = false;
+        }, 1000);
+        return;
+      }
 
       this.likes += num;
 
@@ -292,6 +304,15 @@ export default {
 .edit-area:focus {
   outline: none;
   border: 0.1rem solid hsl(238, 40%, 52%);
+}
+
+.message {
+  color: hsl(238, 40%, 52%);
+  font-family: "Rubik", sans-serif;
+  font-weight: 700;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
 }
 
 @media screen and (min-width: 700px) {

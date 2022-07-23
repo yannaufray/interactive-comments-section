@@ -19,7 +19,6 @@ export default {
   props: {
     currentUser: {
       type: String,
-      required: true,
       default: "Anonymous",
     },
     pic: {

@@ -5,7 +5,9 @@
       @cancel="this.modalVisible = false"
       v-if="modalVisible"
   /></Teleport>
-  <div v-if="!comments.length">Loading...</div>
+  <div v-if="!comments.length">
+    <TheLoader />
+  </div>
   <div v-else class="comments">
     <Profiles
       @profile-changed="changeCurrentProfile"
@@ -21,7 +23,7 @@
       />
       <NewComment
         @send="handleSend"
-        v-if="replying && comment.id === replyingId"
+        v-show="replying && comment.id === replyingId"
         :currentUser="currentUser"
         :pic="pic"
       />
@@ -37,14 +39,14 @@
           />
           <NewComment
             @send="handleSend"
-            v-if="replying && comment.id === replyingId"
+            v-show="replying && comment.id === replyingId"
             :currentUser="currentUser"
             :pic="pic"
           />
         </div>
       </div>
     </div>
-    <NewComment v-if="!replying" @send="handleSend" :pic="pic" />
+    <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
   </div>
 </template>
 
@@ -53,10 +55,11 @@ import Comment from "../components/Comment.vue";
 import Profiles from "../components/Profiles.vue";
 import NewComment from "../components/NewComment.vue";
 import Modal from "../components/Modal.vue";
+import TheLoader from "../components/TheLoader.vue";
 
 export default {
   name: "Home",
-  components: { Comment, Profiles, NewComment, Modal },
+  components: { Comment, Profiles, NewComment, Modal, TheLoader },
   data() {
     return {
       comments: [],

@@ -70,17 +70,14 @@ export default {
   props: {
     comment: {
       type: String,
-      required: true,
       default: "Some comment.",
     },
     currentUser: {
       type: String,
-      required: true,
       default: "Anonymous",
     },
     replyingTo: {
       type: String,
-      required: true,
       default: "Anonymous",
     },
   },

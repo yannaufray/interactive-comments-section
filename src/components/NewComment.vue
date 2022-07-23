@@ -16,7 +16,17 @@
 
 <script>
 export default {
-  props: ["currentUser", "pic"],
+  props: {
+    currentUser: {
+      type: String,
+      required: true,
+      default: "Anonymous",
+    },
+    pic: {
+      type: String,
+      required: true,
+    },
+  },
   data() {
     return {
       content: "",

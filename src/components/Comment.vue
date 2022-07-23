@@ -67,7 +67,23 @@
 import { formatDistanceToNow } from "date-fns";
 
 export default {
-  props: ["comment", "currentUser", "replyingTo"],
+  props: {
+    comment: {
+      type: String,
+      required: true,
+      default: "Some comment.",
+    },
+    currentUser: {
+      type: String,
+      required: true,
+      default: "Anonymous",
+    },
+    replyingTo: {
+      type: String,
+      required: true,
+      default: "Anonymous",
+    },
+  },
   data() {
     return {
       likes: this.comment.score,

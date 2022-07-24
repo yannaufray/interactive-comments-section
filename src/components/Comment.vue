@@ -27,8 +27,10 @@
     <Interactions
       @reply="$emit('reply', comment)"
       @delete="$emit('delete', comment.id)"
+      @editing="isEditing = !isEditing"
       :comment="comment"
       :currentUser="currentUser"
+      :isEditing="isEditing"
     />
   </div>
 </template>
@@ -56,6 +58,7 @@ export default {
   data() {
     return {
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
+      isEditing: false,
     };
   },
   computed: {

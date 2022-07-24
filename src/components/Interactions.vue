@@ -24,13 +24,11 @@ export default {
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: String, required: true },
-  },
-  data() {
-    return { isEditing: false };
+    isEditing: { type: Boolean, default: false },
   },
   methods: {
     handleEdit(com) {
-      this.isEditing = !this.isEditing;
+      this.$emit("editing", com);
       console.log(this.comment.content, com.content);
     },
   },

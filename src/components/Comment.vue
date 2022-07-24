@@ -24,33 +24,22 @@
 
     <Likes :comment="comment" :currentUser="currentUser" />
 
-    <div
-      @click="$emit('reply', comment)"
-      v-if="comment.user.username !== currentUser"
-      class="reply"
-    >
-      <img src="../assets/images/icon-reply.svg" alt="" />
-      <span>Reply</span>
-    </div>
-    <div v-else class="icons-current-user">
-      <div @click="$emit('delete', comment.id)" class="delete">
-        <img src="../assets/images/icon-delete.svg" alt="" />
-        <span>Delete</span>
-      </div>
-      <div @click="handleEdit(comment)" class="edit">
-        <img src="../assets/images/icon-edit.svg" alt="" />
-        <span>Edit</span>
-      </div>
-    </div>
+    <Interactions
+      @reply="$emit('reply', comment)"
+      @delete="$emit('delete', comment.id)"
+      :comment="comment"
+      :currentUser="currentUser"
+    />
   </div>
 </template>
 
 <script>
 import { formatDistanceToNow } from "date-fns";
 import Likes from "../components/Likes.vue";
+import Interactions from "../components/Interactions.vue";
 
 export default {
-  components: { Likes },
+  components: { Likes, Interactions },
   props: {
     comment: {
       type: Object,
@@ -67,7 +56,6 @@ export default {
   data() {
     return {
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
-      isEditing: false,
     };
   },
   computed: {
@@ -77,12 +65,6 @@ export default {
     formattedDate() {
       const date = new Date(this.comment.createdAt);
       return formatDistanceToNow(date, { addSuffix: true });
-    },
-  },
-  methods: {
-    handleEdit(com) {
-      this.isEditing = !this.isEditing;
-      console.log(this.comment.content, com.content);
     },
   },
 };
@@ -138,49 +120,14 @@ export default {
   font-weight: 500;
 }
 
-.reply span,
 .replying-to {
   font-weight: 700;
   color: hsl(238, 40%, 52%);
 }
 
 .pic,
-.replying-to,
-.delete,
-.reply,
-.edit {
+.replying-to {
   user-select: none;
-}
-
-.edit span,
-.delete span {
-  font-weight: 700;
-}
-
-.delete,
-.reply,
-.edit {
-  cursor: pointer;
-  align-self: flex-start;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.delete:hover,
-.reply:hover,
-.edit:hover {
-  opacity: 0.7;
-}
-
-.reply {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  display: block;
-}
-
-.reply img {
-  margin-right: 0.5rem;
 }
 
 .you {
@@ -190,22 +137,6 @@ export default {
   background-color: hsl(238, 40%, 52%);
   border-radius: 0.3rem;
   user-select: none;
-}
-
-.icons-current-user {
-  display: flex;
-  gap: 1rem;
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-}
-
-.edit span {
-  color: hsl(238, 40%, 52%);
-}
-
-.delete span {
-  color: hsl(358, 79%, 66%);
 }
 
 .edit-area {

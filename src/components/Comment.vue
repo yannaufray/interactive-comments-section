@@ -1,9 +1,4 @@
 <template>
-  <Teleport to="body">
-    <span v-show="changingOwnLikes" class="message"
-      >You can't change your own comments' likes.</span
-    >
-  </Teleport>
   <div class="full-comment">
     <div class="content">
       <div class="infos">
@@ -27,25 +22,7 @@
       </div>
     </div>
 
-    <div class="likes">
-      <img
-        @click="changeLikes(1)"
-        src="../assets/images/icon-plus.svg"
-        alt="Plus button"
-        class="btn-plus"
-        :class="{ active: plusIsActive }"
-      />
-      <span class="likes-number">{{ calcLikes }}</span>
-      <img
-        @click="changeLikes(-1)"
-        src="../assets/images/icon-minus.svg"
-        alt="Minus button"
-        class="btn-minus"
-        :class="{
-          active: minusIsActive,
-        }"
-      />
-    </div>
+    <Likes :comment="comment" :currentUser="currentUser" />
 
     <div
       @click="$emit('reply', comment)"
@@ -70,12 +47,13 @@
 
 <script>
 import { formatDistanceToNow } from "date-fns";
+import Likes from "../components/Likes.vue";
 
 export default {
+  components: { Likes },
   props: {
     comment: {
-      type: String,
-      default: "Some comment.",
+      type: Object,
     },
     currentUser: {
       type: String,
@@ -88,13 +66,8 @@ export default {
   },
   data() {
     return {
-      likes: this.comment.score,
-      initialLlikes: this.comment.score,
       pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
-      minusIsActive: false,
-      plusIsActive: false,
       isEditing: false,
-      changingOwnLikes: false,
     };
   },
   computed: {
@@ -107,35 +80,6 @@ export default {
     },
   },
   methods: {
-    changeLikes(num) {
-      // Likes can't go under 0
-      if (this.likes + num < 0) return;
-
-      // Can vote only once
-      if (
-        this.likes + num > this.initialLlikes + 1 ||
-        this.likes + num < this.initialLlikes - 1
-      )
-        return;
-
-      // Can't change your own likes
-      if (this.comment.user.username === this.currentUser) {
-        this.changingOwnLikes = true;
-        setTimeout(() => {
-          this.changingOwnLikes = false;
-        }, 1000);
-        return;
-      }
-
-      this.likes += num;
-
-      if (this.likes === this.initialLlikes + 1) this.plusIsActive = true;
-      if (this.likes === this.initialLlikes - 1) this.minusIsActive = true;
-      if (this.likes === this.initialLlikes) {
-        this.minusIsActive = false;
-        this.plusIsActive = false;
-      }
-    },
     handleEdit(com) {
       this.isEditing = !this.isEditing;
       console.log(this.comment.content, com.content);
@@ -156,17 +100,6 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-}
-
-.likes {
-  background-color: hsl(228, 33%, 97%);
-  border-radius: 0.3rem;
-
-  display: flex;
-  align-items: center;
-  align-self: flex-start; /* Prevents from stretching */
-  justify-content: space-between;
-  gap: 0.5rem;
 }
 
 .content {
@@ -205,7 +138,6 @@ export default {
   font-weight: 500;
 }
 
-.likes-number,
 .reply span,
 .replying-to {
   font-weight: 700;
@@ -213,27 +145,11 @@ export default {
 }
 
 .pic,
-.likes-number,
 .replying-to,
-.btn-plus,
-.btn-minus,
 .delete,
 .reply,
 .edit {
   user-select: none;
-}
-
-.btn-plus,
-.btn-minus {
-  cursor: pointer;
-  padding: 0.6rem;
-  filter: invert(82%) sepia(9%) saturate(941%) hue-rotate(201deg)
-    brightness(99%) contrast(88%);
-}
-
-.active {
-  filter: invert(21%) sepia(94%) saturate(1589%) hue-rotate(226deg)
-    brightness(104%) contrast(92%);
 }
 
 .edit span,
@@ -306,24 +222,10 @@ export default {
   border: 0.1rem solid hsl(238, 40%, 52%);
 }
 
-.message {
-  color: hsl(238, 40%, 52%);
-  font-family: "Rubik", sans-serif;
-  font-weight: 700;
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
-}
-
 @media screen and (min-width: 700px) {
   .full-comment {
     flex-direction: row-reverse;
     justify-content: flex-end;
-  }
-
-  .likes {
-    flex-direction: column;
-    align-self: center;
   }
 
   .reply {

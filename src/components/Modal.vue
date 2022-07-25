@@ -25,13 +25,13 @@ export default {};
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  position: absolute;
+  height: 100%;
+  position: fixed;
 }
 
 .overlay {
   background-color: black;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   top: 0;

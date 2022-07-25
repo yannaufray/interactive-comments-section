@@ -4,7 +4,8 @@
       @delete="handleDelete(idToBeDeleted)"
       @cancel="this.modalVisible = false"
       v-if="modalVisible"
-  /></Teleport>
+    />
+  </Teleport>
   <div v-if="!comments.length">
     <TheLoader />
   </div>

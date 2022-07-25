@@ -6,7 +6,7 @@
     <div class="update">
       <img :src="pic" alt="Profile pic" />
       <div class="buttons">
-        <a class="cancel">Cancel</a>
+        <span @click="$emit('cancel-edit')" class="cancel">Cancel</span>
         <button @click="sendUpdate" class="btn-update">Update</button>
       </div>
     </div>
@@ -71,14 +71,18 @@ export default {
 }
 
 .cancel {
-  padding: 0.8rem 1.5rem;
   border-radius: 0.5rem;
   color: hsl(238, 40%, 52%);
-  background-color: red;
-  text-transform: uppercase;
+  background-color: white;
   font-weight: 700;
   border: none;
   cursor: pointer;
   opacity: 1;
+  align-self: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
 }
 </style>

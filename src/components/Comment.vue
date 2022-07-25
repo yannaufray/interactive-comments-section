@@ -31,7 +31,12 @@
   </div>
 
   <div v-else>
-    <CommentEdited @edited="isEditing = false" :comment="comment" :pic="pic" />
+    <CommentEdited
+      @edited="isEditing = false"
+      @cancel-edit="isEditing = false"
+      :comment="comment"
+      :pic="pic"
+    />
   </div>
 </template>
 

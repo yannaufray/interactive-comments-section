@@ -1,5 +1,5 @@
 <template>
-  <div class="full-comment">
+  <div v-if="!isEditing" class="full-comment">
     <div class="content">
       <div class="infos">
         <img :src="pic" alt="" class="pic" />
@@ -10,15 +10,11 @@
         <span class="date">{{ formattedDate }}</span>
       </div>
 
-      <div v-if="!isEditing" class="text">
+      <div class="text">
         <span v-if="comment.replyingTo" class="replying-to"
           >@{{ comment.replyingTo }}</span
         >
         {{ comment.content }}
-      </div>
-      <div v-else>
-        <textarea class="edit-area" v-model="comment.content"></textarea>
-        <button @click="sendUpdate" class="btn-update">Update</button>
       </div>
     </div>
 
@@ -33,15 +29,20 @@
       :isEditing="isEditing"
     />
   </div>
+
+  <div v-else>
+    <CommentEdited @edited="isEditing = false" :comment="comment" :pic="pic" />
+  </div>
 </template>
 
 <script>
 import { formatDistanceToNow } from "date-fns";
 import Likes from "../components/Likes.vue";
 import Interactions from "../components/Interactions.vue";
+import CommentEdited from "../components/CommentEdited.vue";
 
 export default {
-  components: { Likes, Interactions },
+  components: { Likes, Interactions, CommentEdited },
   props: {
     comment: {
       type: Object,
@@ -140,20 +141,6 @@ export default {
   background-color: hsl(238, 40%, 52%);
   border-radius: 0.3rem;
   user-select: none;
-}
-
-.edit-area {
-  margin: 1rem;
-  border-radius: 0.3rem;
-  width: 100%;
-  padding: 1rem 1rem 2.5rem;
-  border: 0.1rem solid hsl(223, 19%, 93%);
-  resize: none;
-}
-
-.edit-area:focus {
-  outline: none;
-  border: 0.1rem solid hsl(238, 40%, 52%);
 }
 
 @media screen and (min-width: 700px) {

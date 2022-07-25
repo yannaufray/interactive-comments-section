@@ -63,20 +63,6 @@
           }
         }
       ]
-    },
-    {
-      "id": 9387,
-      "content": "lkuh",
-      "createdAt": "2022-07-25T11:53:24.664Z",
-      "score": 1,
-      "replyingTo": "",
-      "user": {
-        "image": {
-          "png": "../assets/images/avatars/image-juliusomo.png",
-          "webp": "../assets/images/avatars/image-juliusomo.webp"
-        },
-        "username": "juliusomo"
-      }
     }
   ]
 }

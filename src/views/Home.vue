@@ -37,6 +37,7 @@
             :comment="comment"
             :currentUser="currentUser"
             :replyingTo="replyingTo"
+            :replying="replying"
           />
           <NewComment
             @send="handleSend"

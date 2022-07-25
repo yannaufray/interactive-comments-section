@@ -12,7 +12,7 @@
       <img src="../assets/images/icon-delete.svg" alt="" />
       <span>Delete</span>
     </div>
-    <div @click="handleEdit(comment)" class="edit">
+    <div @click="$emit('editing', com)" class="edit">
       <img src="../assets/images/icon-edit.svg" alt="" />
       <span>Edit</span>
     </div>
@@ -25,12 +25,6 @@ export default {
     comment: { type: Object, required: true },
     currentUser: { type: String, required: true },
     isEditing: { type: Boolean, default: false },
-  },
-  methods: {
-    handleEdit(com) {
-      this.$emit("editing", com);
-      console.log(this.comment.content, com.content);
-    },
   },
 };
 </script>

@@ -66,6 +66,7 @@ export default {
       replyingId: null,
       replyingTo: "",
       idToBeDeleted: null,
+      modalVisible: false,
     };
   },
   watch: {

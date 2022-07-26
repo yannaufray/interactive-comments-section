@@ -23,9 +23,7 @@ export default {
     return {
       loaded: false,
       currentUser: "juliusomo",
-
       pic: "",
-      modalVisible: false,
     };
   },
   mounted() {

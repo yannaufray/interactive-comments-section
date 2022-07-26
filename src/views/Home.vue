@@ -22,12 +22,13 @@
         :currentUser="currentUser"
         :replyingTo="replyingTo"
       />
-      <NewComment
-        @send="handleSend"
-        v-show="replying && comment.id === replyingId"
-        :currentUser="currentUser"
-        :pic="pic"
-      />
+      <transition name="fade"
+        ><NewComment
+          @send="handleSend"
+          v-show="replying && comment.id === replyingId"
+          :currentUser="currentUser"
+          :pic="pic"
+      /></transition>
 
       <div v-if="comment.replies && comment.replies.length" class="replies">
         <div v-for="comment in comment.replies" :key="comment.id">
@@ -39,16 +40,20 @@
             :replyingTo="replyingTo"
             :replying="replying"
           />
-          <NewComment
-            @send="handleSend"
-            v-show="replying && comment.id === replyingId"
-            :currentUser="currentUser"
-            :pic="pic"
-          />
+          <transition name="fade">
+            <NewComment
+              @send="handleSend"
+              v-show="replying && comment.id === replyingId"
+              :currentUser="currentUser"
+              :pic="pic"
+            />
+          </transition>
         </div>
       </div>
     </div>
-    <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
+    <transition name="fade">
+      <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
+    </transition>
   </div>
 </template>
 
@@ -215,5 +220,13 @@ export default {
 .btn-send:hover,
 .btn-update:hover {
   opacity: 0.7;
+}
+
+.fade-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
 }
 </style>

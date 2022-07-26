@@ -20,4 +20,12 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.fade-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
 </style>

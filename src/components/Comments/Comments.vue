@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import Comment from "../components/Comment.vue";
-import NewComment from "../components/NewComment.vue";
-import Modal from "../components/Modal.vue";
+import Comment from "./Comment.vue";
+import NewComment from "./NewComment.vue";
+import Modal from "../Modal.vue";
 
 export default {
   components: { Comment, NewComment, Modal },

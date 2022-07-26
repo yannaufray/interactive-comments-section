@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Comments from "../components/Comments.vue";
+import Comments from "../components/Comments/Comments.vue";
 import Profiles from "../components/Profiles.vue";
 import TheLoader from "../components/TheLoader.vue";
 

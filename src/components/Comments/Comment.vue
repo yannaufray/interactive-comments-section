@@ -42,9 +42,9 @@
 
 <script>
 import { formatDistanceToNow } from "date-fns";
-import Likes from "../components/Likes.vue";
-import Interactions from "../components/Interactions.vue";
-import CommentEdited from "../components/CommentEdited.vue";
+import Likes from "./Likes.vue";
+import Interactions from "./Interactions.vue";
+import CommentEdited from "./CommentEdited.vue";
 
 export default {
   components: { Likes, Interactions, CommentEdited },
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
+      pic: require(`../../assets/images/avatars/image-${this.comment.user.username}.png`),
       isEditing: false,
     };
   },

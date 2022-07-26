@@ -66,6 +66,7 @@ export default {
 .profile {
   cursor: pointer;
   opacity: 0.5;
+  user-select: none;
 }
 
 .current {

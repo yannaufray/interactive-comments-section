@@ -6,7 +6,7 @@
       v-if="modalVisible"
     />
   </Teleport>
-  <transition-group name="comments" appear>
+  <transition-group name="appears" appear>
     <div v-for="comment in comments" :key="comment.id">
       <Comment
         @reply="handleReply"
@@ -17,7 +17,7 @@
       />
       <NewComment
         @send="handleSend"
-        v-show="replying && comment.id === replyingId"
+        v-if="replying && comment.id === replyingId"
         :currentUser="currentUser"
         :pic="pic"
       />
@@ -34,7 +34,7 @@
           />
           <NewComment
             @send="handleSend"
-            v-show="replying && comment.id === replyingId"
+            v-if="replying && comment.id === replyingId"
             :currentUser="currentUser"
             :pic="pic"
           />
@@ -42,7 +42,7 @@
       </div>
     </div>
   </transition-group>
-  <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
+  <NewComment v-if="!replying" @send="handleSend" :pic="pic" />
 </template>
 
 <script>
@@ -184,18 +184,18 @@ export default {
 </script>
 
 <style scoped>
-.comments-enter-from,
-.comments-leave-to {
+.appears-enter-from,
+.appears-leave-to {
   opacity: 0;
   transform: scale(0.95);
 }
 
-.comments-enter-active,
-.comments-leave-to {
+.appears-enter-active,
+.appears-leave-to {
   transition: all 0.3s ease;
 }
 
-.comments-move {
+.appears-move {
   transition: all 0.3s ease;
 }
 </style>

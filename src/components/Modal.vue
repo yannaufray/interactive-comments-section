@@ -100,6 +100,6 @@ export default {};
 }
 
 .delete {
-  background-color: hsl(358, 79%, 66%);
+  background-color: var(--accent-color);
 }
 </style>

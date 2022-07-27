@@ -19,7 +19,7 @@ export default {
 <style scoped>
 .message {
   padding: 0.8rem 1.5rem;
-  background-color: hsl(238, 40%, 52%);
+  background-color: var(--main-color);
   color: white;
   border-radius: 0.5rem;
   font-family: "Rubik", sans-serif;

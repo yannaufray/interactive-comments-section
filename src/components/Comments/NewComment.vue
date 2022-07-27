@@ -60,7 +60,7 @@ export default {
 
 .comment-input:focus {
   outline: none;
-  border: 0.1rem solid hsl(238, 40%, 52%);
+  border: 0.1rem solid var(--main-color);
 }
 
 .input-wrapper {

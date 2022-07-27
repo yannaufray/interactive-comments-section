@@ -76,15 +76,15 @@ export default {
 }
 
 .edit span {
-  color: hsl(238, 40%, 52%);
+  color: var(--main-color);
 }
 
 .delete span {
-  color: hsl(358, 79%, 66%);
+  color: var(--accent-color);
 }
 
 .reply span {
   font-weight: 700;
-  color: hsl(238, 40%, 52%);
+  color: var(--main-color);
 }
 </style>

@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .likes {
-  background-color: hsl(228, 33%, 97%);
+  background-color: var(--main-color-pale);
   border-radius: 0.3rem;
 
   display: flex;
@@ -96,7 +96,7 @@ export default {
 
 .likes-number {
   font-weight: 700;
-  color: hsl(238, 40%, 52%);
+  color: var(--main-color);
 }
 
 .likes-number,

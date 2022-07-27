@@ -52,7 +52,7 @@ export default {
 .btn-send,
 .btn-update {
   padding: 0.8rem 1.5rem;
-  background-color: hsl(238, 40%, 52%);
+  background-color: var(--main-color);
   border-radius: 0.5rem;
   color: white;
   text-transform: uppercase;

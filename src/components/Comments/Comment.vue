@@ -130,7 +130,7 @@ export default {
 
 .replying-to {
   font-weight: 700;
-  color: hsl(238, 40%, 52%);
+  color: var(--main-color);
 }
 
 .pic,
@@ -142,7 +142,7 @@ export default {
   padding: 0.1rem 0.4rem;
   color: white;
   font-weight: 700;
-  background-color: hsl(238, 40%, 52%);
+  background-color: var(--main-color);
   border-radius: 0.3rem;
   user-select: none;
 }

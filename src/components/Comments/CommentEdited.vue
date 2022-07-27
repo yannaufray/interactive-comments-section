@@ -51,7 +51,7 @@ export default {
 
 .update-input:focus {
   outline: none;
-  border: 0.1rem solid hsl(238, 40%, 52%);
+  border: 0.1rem solid var(--main-color);
 }
 
 .input-wrapper {
@@ -72,7 +72,7 @@ export default {
 
 .cancel {
   border-radius: 0.5rem;
-  color: hsl(238, 40%, 52%);
+  color: var(--main-color);
   background-color: white;
   font-weight: 700;
   border: none;

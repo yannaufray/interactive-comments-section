@@ -195,8 +195,7 @@ export default {
   transition: all 0.3s ease;
 }
 
-.comments-move,
-.new-comment-move {
+.comments-move {
   transition: all 0.3s ease;
 }
 </style>

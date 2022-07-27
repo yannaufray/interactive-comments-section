@@ -33,8 +33,10 @@ export default {
   },
   methods: {
     sendReply: function () {
-      this.$emit("send", this.content);
-      this.content = "";
+      if (this.content !== "") {
+        this.$emit("send", this.content);
+        this.content = "";
+      }
     },
   },
 };

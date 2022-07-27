@@ -1,8 +1,10 @@
 <template>
   <Teleport to="body">
-    <span v-show="userChanging" class="message"
-      >Current user is now {{ currentUser }}</span
-    >
+    <Transition name="toast">
+      <div v-show="userChanging" class="message">
+        Current user is now {{ currentUser }}
+      </div>
+    </Transition>
   </Teleport>
   <div class="container">
     <div
@@ -85,9 +87,12 @@ export default {
 }
 
 .message {
-  color: hsl(238, 40%, 52%);
+  background-color: hsl(238, 40%, 52%);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  background-color: hsl(238, 40%, 52%);
+  border-radius: 0.5rem;
   font-family: "Rubik", sans-serif;
-  font-weight: 700;
   position: absolute;
   left: 1rem;
   top: 1rem;

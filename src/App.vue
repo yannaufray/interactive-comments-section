@@ -22,10 +22,19 @@ body {
 }
 
 .fade-enter-active {
-  transition: opacity 0.5s ease-out;
+  transition: height 1s ease-out;
 }
 
 .fade-enter-from {
-  opacity: 0;
+  height: 0;
+}
+
+.toast-enter-from,
+.toast-leave-to {
+  transform: translateY(-3rem);
+}
+
+.toast-enter-active {
+  transition: transform 0.1s ease-out;
 }
 </style>

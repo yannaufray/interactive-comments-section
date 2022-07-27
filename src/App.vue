@@ -20,12 +20,4 @@ body {
   display: flex;
   justify-content: center;
 }
-
-.fade-enter-active {
-  transition: height 1s ease-out;
-}
-
-.fade-enter-from {
-  height: 0;
-}
 </style>

@@ -21,19 +21,13 @@ export default {};
   bottom: 1rem;
 }
 
-.toast-enter-from {
-  transform: translateY(3vh);
-}
-
-.toast-enter-active {
-  transition: transform 0.1s ease-out;
-}
-
+.toast-enter-from,
 .toast-leave-to {
-  opacity: 0;
+  transform: translateY(5vh);
 }
 
+.toast-enter-active,
 .toast-leave-active {
-  transition: opacity 0.15s ease-in;
+  transition: transform 0.1s ease;
 }
 </style>

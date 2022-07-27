@@ -14,13 +14,12 @@
       :currentUser="currentUser"
       :replyingTo="replyingTo"
     />
-    <Transition name="fade"
-      ><NewComment
-        @send="handleSend"
-        v-show="replying && comment.id === replyingId"
-        :currentUser="currentUser"
-        :pic="pic"
-    /></Transition>
+    <NewComment
+      @send="handleSend"
+      v-show="replying && comment.id === replyingId"
+      :currentUser="currentUser"
+      :pic="pic"
+    />
 
     <div v-if="comment.replies && comment.replies.length" class="replies">
       <div v-for="comment in comment.replies" :key="comment.id">
@@ -32,20 +31,16 @@
           :replyingTo="replyingTo"
           :replying="replying"
         />
-        <Transition name="fade">
-          <NewComment
-            @send="handleSend"
-            v-show="replying && comment.id === replyingId"
-            :currentUser="currentUser"
-            :pic="pic"
-          />
-        </Transition>
+        <NewComment
+          @send="handleSend"
+          v-show="replying && comment.id === replyingId"
+          :currentUser="currentUser"
+          :pic="pic"
+        />
       </div>
     </div>
   </div>
-  <Transition name="fade">
-    <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
-  </Transition>
+  <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
 </template>
 
 <script>

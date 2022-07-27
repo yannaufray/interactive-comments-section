@@ -1,17 +1,19 @@
 <template>
-  <div class="new-comment">
-    <div class="input-wrapper">
-      <textarea
-        placeholder="Add a comment..."
-        class="comment-input"
-        v-model="content"
-      ></textarea>
+  <Transition name="fade">
+    <div class="new-comment">
+      <div class="input-wrapper">
+        <textarea
+          placeholder="Add a comment..."
+          class="comment-input"
+          v-model="content"
+        ></textarea>
+      </div>
+      <div class="send">
+        <img :src="pic" alt="Profile pic" />
+        <button @click="sendReply" class="btn-send">Send</button>
+      </div>
     </div>
-    <div class="send">
-      <img :src="pic" alt="Profile pic" />
-      <button @click="sendReply" class="btn-send">Send</button>
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script>
@@ -75,5 +77,13 @@ export default {
 .send img {
   width: 2rem;
   height: 2rem;
+}
+
+.fade-leave-active {
+  transition: transform 1s ease-out;
+}
+
+.fade-enter-from {
+  transform: translateY(3rem);
 }
 </style>

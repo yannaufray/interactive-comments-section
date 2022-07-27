@@ -1,13 +1,19 @@
 <template>
   <Transition name="toast">
-    <span class="message">
+    <span class="message" :class="alert ? wobble : ''">
       <slot></slot>
     </span>
   </Transition>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    alert: {
+      type: Boolean,
+    },
+  },
+};
 </script>
 
 <style scoped>

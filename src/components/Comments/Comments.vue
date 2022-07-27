@@ -6,40 +6,42 @@
       v-if="modalVisible"
     />
   </Teleport>
-  <div v-for="comment in comments" :key="comment.id">
-    <Comment
-      @reply="handleReply"
-      @delete="displayDeleteModal"
-      :comment="comment"
-      :currentUser="currentUser"
-      :replyingTo="replyingTo"
-    />
-    <NewComment
-      @send="handleSend"
-      v-show="replying && comment.id === replyingId"
-      :currentUser="currentUser"
-      :pic="pic"
-    />
+  <transition-group name="comments" appear>
+    <div v-for="comment in comments" :key="comment.id">
+      <Comment
+        @reply="handleReply"
+        @delete="displayDeleteModal"
+        :comment="comment"
+        :currentUser="currentUser"
+        :replyingTo="replyingTo"
+      />
+      <NewComment
+        @send="handleSend"
+        v-show="replying && comment.id === replyingId"
+        :currentUser="currentUser"
+        :pic="pic"
+      />
 
-    <div v-if="comment.replies && comment.replies.length" class="replies">
-      <div v-for="comment in comment.replies" :key="comment.id">
-        <Comment
-          @reply="handleReply"
-          @delete="displayDeleteModal"
-          :comment="comment"
-          :currentUser="currentUser"
-          :replyingTo="replyingTo"
-          :replying="replying"
-        />
-        <NewComment
-          @send="handleSend"
-          v-show="replying && comment.id === replyingId"
-          :currentUser="currentUser"
-          :pic="pic"
-        />
+      <div v-if="comment.replies && comment.replies.length" class="replies">
+        <div v-for="comment in comment.replies" :key="comment.id">
+          <Comment
+            @reply="handleReply"
+            @delete="displayDeleteModal"
+            :comment="comment"
+            :currentUser="currentUser"
+            :replyingTo="replyingTo"
+            :replying="replying"
+          />
+          <NewComment
+            @send="handleSend"
+            v-show="replying && comment.id === replyingId"
+            :currentUser="currentUser"
+            :pic="pic"
+          />
+        </div>
       </div>
     </div>
-  </div>
+  </transition-group>
   <NewComment v-show="!replying" @send="handleSend" :pic="pic" />
 </template>
 
@@ -181,4 +183,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.comments-enter-from,
+.comments-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.comments-enter-active,
+.comments-leave-to {
+  transition: all 0.3s ease;
+}
+
+.comments-move,
+.new-comment-move {
+  transition: all 0.3s ease;
+}
+</style>

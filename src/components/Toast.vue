@@ -18,16 +18,22 @@ export default {};
   border-radius: 0.5rem;
   font-family: "Rubik", sans-serif;
   position: absolute;
-  left: 1rem;
-  top: 1rem;
+  bottom: 1rem;
 }
 
-.toast-enter-from,
-.toast-leave-to {
-  transform: translateY(-3rem);
+.toast-enter-from {
+  transform: translateY(3rem);
 }
 
 .toast-enter-active {
   transition: transform 0.1s ease-out;
+}
+
+.toast-leave-to {
+  opacity: 0;
+}
+
+.toast-leave-active {
+  transition: opacity 0.15s ease-in;
 }
 </style>

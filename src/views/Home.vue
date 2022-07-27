@@ -41,6 +41,7 @@ export default {
 <style>
 .comments {
   max-width: 900px;
+  margin-top: 2rem;
 }
 
 .replies {

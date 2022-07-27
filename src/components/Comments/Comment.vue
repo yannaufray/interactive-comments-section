@@ -82,7 +82,7 @@ export default {
 <style scoped>
 .full-comment {
   background-color: white;
-  margin: 2rem 1rem 1rem;
+  margin: 0 1rem 1rem;
   padding: 1rem;
   border-radius: 0.3rem;
   position: relative;

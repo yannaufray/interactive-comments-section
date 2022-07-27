@@ -61,7 +61,7 @@ export default {
   display: flex;
   gap: 1rem;
   justify-content: center;
-  margin: 3rem 0;
+  margin-bottom: 2rem;
 }
 
 .profile {
@@ -89,8 +89,6 @@ export default {
   .container {
     position: absolute;
     flex-direction: column;
-    margin-top: 0;
-    top: 2rem;
     right: 2rem;
   }
 }

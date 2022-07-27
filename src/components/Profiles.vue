@@ -1,10 +1,6 @@
 <template>
   <Teleport to="body">
-    <Transition name="toast">
-      <div v-show="userChanging" class="message">
-        Current user is now {{ currentUser }}
-      </div>
-    </Transition>
+    <Toast v-show="userChanging"> Current user is now {{ currentUser }} </Toast>
   </Teleport>
   <div class="container">
     <div
@@ -23,8 +19,11 @@
 </template>
 
 <script>
+import Toast from "./Toast.vue";
+
 export default {
   props: { currentUser: String },
+  components: { Toast },
   data() {
     return {
       profiles: [
@@ -84,18 +83,6 @@ export default {
     opacity: 1;
     transform: translateY(-0.5rem);
   }
-}
-
-.message {
-  background-color: hsl(238, 40%, 52%);
-  color: white;
-  padding: 0.8rem 1.5rem;
-  background-color: hsl(238, 40%, 52%);
-  border-radius: 0.5rem;
-  font-family: "Rubik", sans-serif;
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
 }
 
 @media screen and (min-width: 1440px) {

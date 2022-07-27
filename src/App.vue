@@ -28,13 +28,4 @@ body {
 .fade-enter-from {
   height: 0;
 }
-
-.toast-enter-from,
-.toast-leave-to {
-  transform: translateY(-3rem);
-}
-
-.toast-enter-active {
-  transition: transform 0.1s ease-out;
-}
 </style>

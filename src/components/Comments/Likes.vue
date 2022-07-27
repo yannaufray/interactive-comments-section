@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
-    <span v-show="changingOwnLikes" class="message"
-      >You can't change your own comments' likes.</span
+    <Toast v-show="changingOwnLikes"
+      >You can't change your own comments' likes.</Toast
     >
   </Teleport>
   <div class="likes">
@@ -26,11 +26,14 @@
 </template>
 
 <script>
+import Toast from "../Toast.vue";
+
 export default {
   props: {
     comment: { type: Object, required: true },
     currentUser: { type: String, required: true },
   },
+  components: { Toast },
   data() {
     return {
       likes: this.comment.score,
@@ -113,15 +116,6 @@ export default {
 .active {
   filter: invert(21%) sepia(94%) saturate(1589%) hue-rotate(226deg)
     brightness(104%) contrast(92%);
-}
-
-.message {
-  color: hsl(238, 40%, 52%);
-  font-family: "Rubik", sans-serif;
-  font-weight: 700;
-  position: absolute;
-  left: 1rem;
-  top: 1rem;
 }
 
 @media screen and (min-width: 700px) {

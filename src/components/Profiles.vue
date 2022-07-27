@@ -38,14 +38,11 @@ export default {
   },
   watch: {
     currentUser() {
-      // This delay will get the message syncronized with the "bump"
-      setTimeout(() => {
-        this.userChanging = true;
-      }, 100);
+      this.userChanging = true;
 
       setTimeout(() => {
         this.userChanging = false;
-      }, 1000);
+      }, 700);
     },
   },
   mounted() {

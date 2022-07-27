@@ -22,7 +22,7 @@ export default {};
 }
 
 .toast-enter-from {
-  transform: translateY(3rem);
+  transform: translateY(3vh);
 }
 
 .toast-enter-active {

@@ -65,7 +65,7 @@ export default {
         this.changingOwnLikes = true;
         setTimeout(() => {
           this.changingOwnLikes = false;
-        }, 1000);
+        }, 700);
         return;
       }
 

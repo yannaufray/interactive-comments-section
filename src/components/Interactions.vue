@@ -1,7 +1,7 @@
 <template>
   <div
     @click="$emit('reply', comment)"
-    v-if="comment.user.username !== currentUser"
+    v-if="comment.user.username !== userStore.currentUser.username"
     class="reply"
   >
     <img src="../assets/images/icon-reply.svg" alt="" />
@@ -19,14 +19,14 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    comment: { type: Object, required: true },
-    currentUser: { type: String, required: true },
-    isEditing: { type: Boolean, default: false },
-  },
-};
+<script setup>
+import { useUserStore } from "../stores/UserStore";
+const userStore = useUserStore();
+
+const props = defineProps({
+  comment: Object,
+  isEditing: Boolean,
+});
 </script>
 
 <style scoped>

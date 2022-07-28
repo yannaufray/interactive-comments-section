@@ -4,7 +4,9 @@
       <div class="infos">
         <img :src="pic" alt="" class="pic" />
         <h3 class="username">{{ comment.user.username }}</h3>
-        <span v-if="comment.user.username === userStore.currentUser" class="you"
+        <span
+          v-if="comment.user.username === userStore.currentUser.username"
+          class="you"
           >you</span
         >
         <span class="date">{{ commentStore.formattedDate(comment) }}</span>
@@ -25,7 +27,6 @@
       @delete="$emit('delete', comment.id)"
       @editing="isEditing = !isEditing"
       :comment="comment"
-      :currentUser="currentUser"
       :isEditing="isEditing"
     />
   </div>

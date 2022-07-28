@@ -26,4 +26,19 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.appears-enter-from,
+.appears-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.appears-enter-active,
+.appears-leave-to {
+  transition: all 0.3s ease;
+}
+
+.appears-move {
+  transition: all 0.3s ease;
+}
 </style>

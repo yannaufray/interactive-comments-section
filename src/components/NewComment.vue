@@ -8,38 +8,27 @@
       ></textarea>
     </div>
     <div class="send">
-      <img :src="pic" alt="Profile pic" />
+      <img :src="userStore.pic" alt="Profile pic" />
       <button @click="sendReply" class="btn-send">Send</button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    currentUser: {
-      type: String,
-      default: "Anonymous",
-    },
-    pic: {
-      type: String,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      content: "",
-    };
-  },
-  methods: {
-    sendReply: function () {
-      if (this.content !== "") {
-        this.$emit("send", this.content);
-        this.content = "";
-      }
-    },
-  },
-};
+<script setup>
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
+import { useUserStore } from "../stores/UserStore";
+
+const userStore = useUserStore();
+
+let content = ref("");
+
+// function sendReply() {
+//   if (content.value !== "") {
+//     this.$emit("send", this.content);
+//     this.content = "";
+//   }
+// }
 </script>
 
 <style scoped>

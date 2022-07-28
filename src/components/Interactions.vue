@@ -4,16 +4,16 @@
     v-if="comment.user.username !== currentUser"
     class="reply"
   >
-    <img src="../../assets/images/icon-reply.svg" alt="" />
+    <img src="../assets/images/icon-reply.svg" alt="" />
     <span>Reply</span>
   </div>
   <div v-else class="icons-current-user">
     <div @click="$emit('delete', comment.id)" class="delete">
-      <img src="../../assets/images/icon-delete.svg" alt="" />
+      <img src="../assets/images/icon-delete.svg" alt="" />
       <span>Delete</span>
     </div>
     <div @click="$emit('editing', com)" class="edit">
-      <img src="../../assets/images/icon-edit.svg" alt="" />
+      <img src="../assets/images/icon-edit.svg" alt="" />
       <span>Edit</span>
     </div>
   </div>

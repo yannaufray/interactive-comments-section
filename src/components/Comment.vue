@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      pic: require(`../../assets/images/avatars/image-${this.comment.user.username}.png`),
+      pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
       isEditing: false,
     };
   },

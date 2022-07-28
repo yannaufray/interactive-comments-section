@@ -7,7 +7,7 @@
   <div class="likes">
     <img
       @click="changeLikes(1)"
-      src="../../assets/images/icon-plus.svg"
+      src="../assets/images/icon-plus.svg"
       alt="Plus button"
       class="btn-plus"
       :class="{ active: plusIsActive }"
@@ -15,7 +15,7 @@
     <span class="likes-number">{{ calcLikes }}</span>
     <img
       @click="changeLikes(-1)"
-      src="../../assets/images/icon-minus.svg"
+      src="../assets/images/icon-minus.svg"
       alt="Minus button"
       class="btn-minus"
       :class="{
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import Toast from "../Toast.vue";
+import Toast from "./Toast.vue";
 
 export default {
   props: {

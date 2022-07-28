@@ -1,16 +1,18 @@
 <template>
   <Teleport to="body">
-    <Toast v-show="userChanging"> Current user is now {{ currentUser }} </Toast>
+    <Toast v-show="userStore.userChanging">
+      Current user is now {{ userStore.currentUser.username }}
+    </Toast>
   </Teleport>
   <div class="container">
     <div
-      :class="{ current: currentUser === profile.name }"
+      :class="{ current: userStore.currentUser.username === profile.name }"
       class="profile"
-      v-for="profile in profiles"
+      v-for="profile in userStore.profiles"
       :key="profile"
     >
       <img
-        @click="$emit('profile-changed', profile)"
+        @click="userStore.changeCurrentProfile(profile)"
         :src="profile.pic"
         alt=""
       />
@@ -18,39 +20,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Toast from "./Toast.vue";
+import { useUserStore } from "../stores/UserStore";
+import { ref } from "@vue/reactivity";
+import { onMounted, watch } from "@vue/runtime-core";
+const userStore = useUserStore();
 
-export default {
-  props: { currentUser: String },
-  components: { Toast },
-  data() {
-    return {
-      profiles: [
-        { name: "amyrobson", pic: "" },
-        { name: "maxblagun", pic: "" },
-        { name: "ramsesmiron", pic: "" },
-        { name: "juliusomo", pic: "" },
-      ],
-      pics: [],
-      userChanging: false,
-    };
-  },
-  watch: {
-    currentUser() {
-      this.userChanging = true;
-
-      setTimeout(() => {
-        this.userChanging = false;
-      }, 700);
-    },
-  },
-  mounted() {
-    this.profiles.map((profile) => {
-      profile.pic = require(`../assets/images/avatars/image-${profile.name}.png`);
-    });
-  },
-};
+// onMounted(() => {
+//   profiles.value.map((profile) => {
+//     profile.pic = require(`../assets/images/avatars/image-${profile.name}.png`);
+//   });
 </script>
 
 <style scoped>

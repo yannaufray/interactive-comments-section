@@ -11,31 +11,21 @@
   </div>
 </template>
 
-<script>
-import Comments from "../components/Comments/Comments.vue";
+<script setup>
+import { ref } from "@vue/reactivity";
+import Comments from "../components/Comments.vue";
 import Profiles from "../components/Profiles.vue";
 import TheLoader from "../components/TheLoader.vue";
+import { onMounted } from "@vue/runtime-core";
+import { useCommentStore } from "../stores/CommentStore";
+import { useUserStore } from "../stores/UserStore";
+const commentStore = useCommentStore();
+const userStore = useUserStore();
 
-export default {
-  name: "Home",
-  components: { Comments, Profiles, TheLoader },
-  data() {
-    return {
-      loaded: false,
-      currentUser: "juliusomo",
-      pic: "",
-    };
-  },
-  mounted() {
-    this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
-  },
-  methods: {
-    changeCurrentProfile: function (profile) {
-      this.currentUser = profile.name;
-      this.pic = require(`../assets/images/avatars/image-${this.currentUser}.png`);
-    },
-  },
-};
+let loaded = ref(false);
+let currentUser = ref(userStore.currentUser.username);
+
+let pic = ref(userStore.pic);
 </script>
 
 <style>

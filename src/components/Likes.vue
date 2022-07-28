@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <Toast v-show="changingOwnLikes"
+    <Toast alert v-show="changingOwnLikes"
       >You can't change your own comments' likes.</Toast
     >
   </Teleport>

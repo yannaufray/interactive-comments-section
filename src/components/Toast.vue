@@ -1,6 +1,6 @@
 <template>
   <Transition name="toast">
-    <span class="message" :class="alert ? wobble : ''">
+    <span class="message" :class="{ alert: alert }">
       <slot></slot>
     </span>
   </Transition>
@@ -35,5 +35,9 @@ export default {
 .toast-enter-active,
 .toast-leave-active {
   transition: transform 0.1s ease;
+}
+
+.alert {
+  background-color: var(--accent-color);
 }
 </style>

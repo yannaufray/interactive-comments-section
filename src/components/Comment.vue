@@ -40,7 +40,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import Likes from "./Likes.vue";
 import Interactions from "./Interactions.vue";
 import CommentEdited from "./CommentEdited.vue";
@@ -50,29 +50,18 @@ import { computed } from "@vue/runtime-core";
 import { useUserStore } from "../stores/UserStore";
 import { useCommentStore } from "../stores/CommentStore";
 
-export default {
-  components: { Likes, Interactions, CommentEdited },
-  props: {
-    comment: Object,
-    replyingTo: String,
-  },
-  setup(props) {
-    const userStore = useUserStore();
-    const commentStore = useCommentStore();
-    let isEditing = ref(false);
+const props = defineProps({
+  comment: Object,
+  replyingTo: String,
+});
 
-    const pic = ref(
-      require(`../assets/images/avatars/image-${props.comment.user.username}.png`)
-    );
+const userStore = useUserStore();
+const commentStore = useCommentStore();
+let isEditing = ref(false);
 
-    return {
-      userStore,
-      commentStore,
-      isEditing,
-      pic,
-    };
-  },
-};
+const pic = ref(
+  require(`../assets/images/avatars/image-${props.comment.user.username}.png`)
+);
 </script>
 
 <style scoped>

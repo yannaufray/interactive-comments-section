@@ -12,7 +12,7 @@
       class="btn-plus"
       :class="{ active: plusIsActive }"
     />
-    <span class="likes-number">{{ calcLikes }}</span>
+    <span class="likes-number">{{ likes }}</span>
     <img
       @click="changeLikes(-1)"
       src="../assets/images/icon-minus.svg"
@@ -25,61 +25,52 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref } from "@vue/reactivity";
 import Toast from "./Toast.vue";
+import { useUserStore } from "../stores/UserStore";
+const userStore = useUserStore();
 
-export default {
-  props: {
-    comment: { type: Object, required: true },
-    currentUser: { type: String, required: true },
-  },
-  components: { Toast },
-  data() {
-    return {
-      likes: this.comment.score,
-      initialLlikes: this.comment.score,
-      minusIsActive: false,
-      plusIsActive: false,
-      changingOwnLikes: false,
-    };
-  },
-  computed: {
-    calcLikes() {
-      return this.likes;
-    },
-  },
-  methods: {
-    changeLikes(num) {
-      // Likes can't go under 0
-      if (this.likes + num < 0) return;
+const props = defineProps({
+  comment: Object,
+  currentUser: String,
+});
 
-      // Can vote only once
-      if (
-        this.likes + num > this.initialLlikes + 1 ||
-        this.likes + num < this.initialLlikes - 1
-      )
-        return;
+const likes = ref(props.comment.score);
+const initialLlikes = ref(props.comment.score);
+const minusIsActive = ref(false);
+const plusIsActive = ref(false);
+const changingOwnLikes = ref(false);
 
-      // Can't change your own likes
-      if (this.comment.user.username === this.currentUser) {
-        this.changingOwnLikes = true;
-        setTimeout(() => {
-          this.changingOwnLikes = false;
-        }, 900);
-        return;
-      }
+function changeLikes(num) {
+  // Likes can't go under 0
+  if (likes.value + num < 0) return;
 
-      this.likes += num;
+  // Can vote only once
+  if (
+    likes.value + num > initialLlikes.value + 1 ||
+    likes.value + num < initialLlikes.value - 1
+  )
+    return;
 
-      if (this.likes === this.initialLlikes + 1) this.plusIsActive = true;
-      if (this.likes === this.initialLlikes - 1) this.minusIsActive = true;
-      if (this.likes === this.initialLlikes) {
-        this.minusIsActive = false;
-        this.plusIsActive = false;
-      }
-    },
-  },
-};
+  // Can't change your own likes
+  if (props.comment.user.username === userStore.currentUser.username) {
+    changingOwnLikes.value = true;
+    setTimeout(() => {
+      changingOwnLikes.value = false;
+    }, 900);
+    return;
+  }
+
+  likes.value += num;
+
+  if (likes.value === initialLlikes.value + 1) plusIsActive.value = true;
+  if (likes.value === initialLlikes.value - 1) minusIsActive.value = true;
+  if (likes.value === initialLlikes.value) {
+    minusIsActive.value = false;
+    plusIsActive.value = false;
+  }
+}
 </script>
 
 <style scoped>

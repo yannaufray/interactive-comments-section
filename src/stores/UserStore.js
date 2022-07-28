@@ -31,6 +31,10 @@ export const useUserStore = defineStore("UserStore", {
       require(`../assets/images/avatars/image-${state.currentUser.username}.png`),
   },
   actions: {
+    getPic(name) {
+      require(`../assets/images/avatars/image-${name}.png`);
+    },
+
     getCurrentUserPicture() {
       this.pic = require(`../assets/images/avatars/image-${this.currentUser.username}.png`);
     },

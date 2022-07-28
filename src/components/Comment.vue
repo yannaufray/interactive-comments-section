@@ -4,10 +4,10 @@
       <div class="infos">
         <img :src="pic" alt="" class="pic" />
         <h3 class="username">{{ comment.user.username }}</h3>
-        <span v-if="comment.user.username === currentUser" class="you"
+        <span v-if="comment.user.username === userStore.currentUser" class="you"
           >you</span
         >
-        <span class="date">{{ formattedDate }}</span>
+        <span class="date">{{ commentStore.formattedDate(comment) }}</span>
       </div>
 
       <div class="text">
@@ -41,40 +41,36 @@
 </template>
 
 <script>
-import { formatDistanceToNow } from "date-fns";
 import Likes from "./Likes.vue";
 import Interactions from "./Interactions.vue";
 import CommentEdited from "./CommentEdited.vue";
+import { ref } from "@vue/reactivity";
+import { computed } from "@vue/runtime-core";
+
+import { useUserStore } from "../stores/UserStore";
+import { useCommentStore } from "../stores/CommentStore";
 
 export default {
   components: { Likes, Interactions, CommentEdited },
   props: {
-    comment: {
-      type: Object,
-    },
-    currentUser: {
-      type: String,
-      default: "Anonymous",
-    },
-    replyingTo: {
-      type: String,
-      default: "Anonymous",
-    },
+    comment: Object,
+    replyingTo: String,
   },
-  data() {
+  setup(props) {
+    const userStore = useUserStore();
+    const commentStore = useCommentStore();
+    let isEditing = ref(false);
+
+    const pic = ref(
+      require(`../assets/images/avatars/image-${props.comment.user.username}.png`)
+    );
+
     return {
-      pic: require(`../assets/images/avatars/image-${this.comment.user.username}.png`),
-      isEditing: false,
+      userStore,
+      commentStore,
+      isEditing,
+      pic,
     };
-  },
-  computed: {
-    calcLikes() {
-      return this.likes;
-    },
-    formattedDate() {
-      const date = new Date(this.comment.createdAt);
-      return formatDistanceToNow(date, { addSuffix: true });
-    },
   },
 };
 </script>

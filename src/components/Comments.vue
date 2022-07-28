@@ -86,83 +86,31 @@ async function handleSend(content) {
     replyingTo: replyingTo.value,
     user: {
       image: {
-        png: `../assets/images/avatars/image-${this.currentUser}.png`,
-        webp: `../assets/images/avatars/image-${this.currentUser}.webp`,
+        png: `../assets/images/avatars/image-${userStore.currentUser}.png`,
+        webp: `../assets/images/avatars/image-${userStore.currentUser}.webp`,
       },
-      username: this.currentUser,
+      username: userStore.currentUser,
     },
   };
 
-  !this.replying ? this.addNewComment(reply) : this.addReplyToComment(reply);
-}
-
-async function addNewComment(reply) {
-  // Updating the DOM
-  this.comments.push(reply);
-
-  // Posting the new data
-  await fetch("http://localhost:5000/comments/", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(reply),
-  });
-}
-
-async function addReplyToComment(reply) {
-  // Updating the DOM
-  const comIndex = this.comments.findIndex((com) => com.id === this.replyingId);
-  this.comments[comIndex].replies.push(reply);
-
-  // Updating the data with one more reply
-  this.patchComment(this.comments[comIndex]);
-
-  // Resets
-  this.replying = false;
-  this.replyingTo = undefined;
+  !replying.value
+    ? commentStore.addNewComment(reply)
+    : commentStore.addReplyToComment(reply);
 }
 
 function displayDeleteModal(id) {
-  this.modalVisible = true;
-  this.idToBeDeleted = id;
+  modalVisible.value = true;
+  idToBeDeleted.value = id;
 }
 
 async function handleDelete(id) {
-  this.modalVisible = false;
+  modalVisible.value = false;
 
-  const isReply = !this.comments.some((el) => el.id === id);
+  const isReply = !commentStore.comments.some((el) => el.id === id);
 
-  !isReply ? this.deleteComment(id) : this.deleteReplyToComment(id);
-}
-async function deleteComment(id) {
-  const comment = this.comments.find((com) => com.id === id);
-
-  fetch(`http://localhost:5000/comments/${comment.id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-type": "application/json",
-    },
-  });
-  this.comments = this.comments.filter((el) => el.id !== id);
-}
-async function deleteReplyToComment(id) {
-  const comment = this.comments.find((com) =>
-    com.replies.some((reply) => reply.id === id)
-  );
-  const toDeletedId = comment.replies.filter((el) => el.id === id);
-  comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
-
-  this.patchComment(comment);
-}
-function patchComment(comment) {
-  fetch(`http://localhost:5000/comments/${comment.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(comment),
-  });
+  !isReply
+    ? commentStore.deleteComment(id)
+    : commentStore.deleteReplyToComment(id);
 }
 </script>
 

@@ -16,19 +16,20 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import { onMounted } from "@vue/runtime-core";
 import { useUserStore } from "../stores/UserStore";
 
 const userStore = useUserStore();
 
 let content = ref("");
 
-// function sendReply() {
-//   if (content.value !== "") {
-//     this.$emit("send", this.content);
-//     this.content = "";
-//   }
-// }
+const emit = defineEmits(["send"]);
+
+function sendReply() {
+  if (content.value !== "") {
+    emit("send", content.value);
+    content.value = "";
+  }
+}
 </script>
 
 <style scoped>

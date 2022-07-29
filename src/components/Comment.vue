@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <Likes :comment="comment" :currentUser="currentUser" />
+    <Likes :comment="comment" />
 
     <Interactions
       @reply="$emit('reply', comment)"

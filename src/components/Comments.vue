@@ -12,13 +12,11 @@
         @reply="handleReply"
         @delete="displayDeleteModal"
         :comment="comment"
-        :currentUser="currentUser"
         :replyingTo="replyingTo"
       />
       <NewComment
         @send="handleSend"
         v-if="replying && comment.id === replyingId"
-        :currentUser="currentUser"
       />
 
       <div v-if="comment.replies && comment.replies.length" class="replies">
@@ -27,14 +25,12 @@
             @reply="handleReply"
             @delete="displayDeleteModal"
             :comment="comment"
-            :currentUser="currentUser"
             :replyingTo="replyingTo"
             :replying="replying"
           />
           <NewComment
             @send="handleSend"
             v-if="replying && comment.id === replyingId"
-            :currentUser="currentUser"
           />
         </div>
       </div>
@@ -86,10 +82,10 @@ async function handleSend(content) {
     replyingTo: replyingTo.value,
     user: {
       image: {
-        png: `../assets/images/avatars/image-${userStore.currentUser}.png`,
-        webp: `../assets/images/avatars/image-${userStore.currentUser}.webp`,
+        png: `../assets/images/avatars/image-${userStore.currentUser.username}.png`,
+        webp: `../assets/images/avatars/image-${userStore.currentUser.username}.webp`,
       },
-      username: userStore.currentUser,
+      username: userStore.currentUser.username,
     },
   };
 

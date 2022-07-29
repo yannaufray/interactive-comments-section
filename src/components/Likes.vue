@@ -33,7 +33,6 @@ const userStore = useUserStore();
 
 const props = defineProps({
   comment: Object,
-  currentUser: String,
 });
 
 const likes = ref(props.comment.score);

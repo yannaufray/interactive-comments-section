@@ -12,7 +12,6 @@
         @reply="handleReply"
         @delete="displayDeleteModal"
         :comment="comment"
-        :replyingTo="replyingTo"
       />
       <NewComment
         @send="handleSend"
@@ -25,7 +24,6 @@
             @reply="handleReply"
             @delete="displayDeleteModal"
             :comment="comment"
-            :replyingTo="replyingTo"
             :replying="replying"
           />
           <NewComment
@@ -89,9 +87,14 @@ async function handleSend(content) {
     },
   };
 
-  !replying.value
-    ? commentStore.addNewComment(reply)
-    : commentStore.addReplyToComment(reply);
+  if (!replying.value) {
+    commentStore.addNewComment(reply);
+  } else {
+    commentStore.addReplyToComment(reply, replyingId.value);
+    // Resets
+    replying.value = false;
+    replyingTo.value = undefined;
+  }
 }
 
 function displayDeleteModal(id) {

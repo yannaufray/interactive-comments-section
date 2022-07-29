@@ -27,19 +27,14 @@ export const useCommentStore = defineStore("CommentStore", {
         body: JSON.stringify(reply),
       });
     },
-    addReplyToComment: async function (reply) {
+    addReplyToComment: async function (reply, replyingId) {
       // Updating the DOM
-      const comIndex = this.comments.findIndex(
-        (com) => com.id === this.replyingId
-      );
+      const comIndex = this.comments.findIndex((com) => com.id === replyingId);
+      // console.log(this.comments[comIndex].replies);
       this.comments[comIndex].replies.push(reply);
 
       // Updating the data with one more reply
       this.patchComment(this.comments[comIndex]);
-
-      // Resets
-      this.replying = false;
-      this.replyingTo = undefined;
     },
     deleteComment: async function (id) {
       const comment = this.comments.find((com) => com.id === id);

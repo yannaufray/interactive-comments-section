@@ -55,7 +55,6 @@ import { useCommentStore } from "../stores/CommentStore";
 
 const props = defineProps({
   comment: Object,
-  replyingTo: String,
 });
 
 const userStore = useUserStore();

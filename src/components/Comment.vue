@@ -4,7 +4,7 @@
       <div class="infos">
         <img :src="pic" alt="" class="pic" />
         <h3 class="username">{{ comment.user.username }}</h3>
-        <Transition name="appears-no-leave" mode="out-in"
+        <Transition name="fade-in"
           ><span
             v-if="comment.user.username === userStore.currentUser.username"
             class="you"
@@ -150,13 +150,5 @@ const pic = ref(
     top: 1rem;
     bottom: initial;
   }
-}
-
-.appears-no-leave-enter-from {
-  opacity: 0;
-}
-
-.appears-no-leave-enter-active {
-  transition: all 0.3s ease;
 }
 </style>

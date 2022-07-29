@@ -41,4 +41,12 @@ body {
 .appears-move {
   transition: all 0.3s ease;
 }
+
+.fade-in-enter-from {
+  opacity: 0;
+}
+
+.fade-in-enter-active {
+  transition: all 0.5s ease;
+}
 </style>

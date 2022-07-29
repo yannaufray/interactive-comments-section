@@ -36,7 +36,7 @@
 
     <div v-else>
       <CommentEdited
-        @edited="isEditing = false"
+        @edited="editComment"
         @cancel-edit="isEditing = false"
         :comment="comment"
         :pic="pic"
@@ -58,6 +58,11 @@ import { useCommentStore } from "../stores/CommentStore";
 const props = defineProps({
   comment: Object,
 });
+
+const editComment = (editedComment) => {
+  props.comment.content = editedComment;
+  isEditing.value = false;
+};
 
 const userStore = useUserStore();
 const commentStore = useCommentStore();

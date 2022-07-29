@@ -19,18 +19,20 @@
       />
 
       <div v-if="comment.replies && comment.replies.length" class="replies">
-        <div v-for="comment in comment.replies" :key="comment.id">
-          <Comment
-            @reply="handleReply"
-            @delete="displayDeleteModal"
-            :comment="comment"
-            :replying="replying"
-          />
-          <NewComment
-            @send="handleSend"
-            v-if="replying && comment.id === replyingId"
-          />
-        </div>
+        <transition-group name="appears" appear>
+          <div v-for="comment in comment.replies" :key="comment.id">
+            <Comment
+              @reply="handleReply"
+              @delete="displayDeleteModal"
+              :comment="comment"
+              :replying="replying"
+            />
+            <NewComment
+              @send="handleSend"
+              v-if="replying && comment.id === replyingId"
+            />
+          </div>
+        </transition-group>
       </div>
     </div>
   </transition-group>

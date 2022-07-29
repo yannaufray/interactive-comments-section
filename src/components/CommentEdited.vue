@@ -1,7 +1,7 @@
 <template>
   <div class="new-update">
     <div class="input-wrapper">
-      <textarea class="update-input" v-model="comment.content"></textarea>
+      <textarea class="update-input" v-model="editedComment"></textarea>
     </div>
     <div class="update">
       <img :src="pic" alt="Profile pic" />
@@ -25,10 +25,18 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      editedComment: "",
+    };
+  },
   methods: {
     sendUpdate: function () {
-      this.$emit("edited");
+      this.$emit("edited", this.editedComment);
     },
+  },
+  mounted() {
+    this.editedComment = this.comment.content;
   },
 };
 </script>

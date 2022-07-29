@@ -1,46 +1,48 @@
 <template>
-  <div v-if="!isEditing" class="full-comment">
-    <div class="content">
-      <div class="infos">
-        <img :src="pic" alt="" class="pic" />
-        <h3 class="username">{{ comment.user.username }}</h3>
-        <Transition name="fade-in"
-          ><span
-            v-if="comment.user.username === userStore.currentUser.username"
-            class="you"
-            >you</span
-          ></Transition
-        >
-        <span class="date">{{ commentStore.formattedDate(comment) }}</span>
+  <Transition name="appears" mode="out-in">
+    <div v-if="!isEditing" class="full-comment">
+      <div class="content">
+        <div class="infos">
+          <img :src="pic" alt="" class="pic" />
+          <h3 class="username">{{ comment.user.username }}</h3>
+          <Transition name="fade-in"
+            ><span
+              v-if="comment.user.username === userStore.currentUser.username"
+              class="you"
+              >you</span
+            ></Transition
+          >
+          <span class="date">{{ commentStore.formattedDate(comment) }}</span>
+        </div>
+
+        <div class="text">
+          <span v-if="comment.replyingTo" class="replying-to"
+            >@{{ comment.replyingTo }}</span
+          >
+          {{ comment.content }}
+        </div>
       </div>
 
-      <div class="text">
-        <span v-if="comment.replyingTo" class="replying-to"
-          >@{{ comment.replyingTo }}</span
-        >
-        {{ comment.content }}
-      </div>
+      <Likes :comment="comment" />
+
+      <Interactions
+        @reply="$emit('reply', comment)"
+        @delete="$emit('delete', comment.id)"
+        @editing="isEditing = !isEditing"
+        :comment="comment"
+        :isEditing="isEditing"
+      />
     </div>
 
-    <Likes :comment="comment" />
-
-    <Interactions
-      @reply="$emit('reply', comment)"
-      @delete="$emit('delete', comment.id)"
-      @editing="isEditing = !isEditing"
-      :comment="comment"
-      :isEditing="isEditing"
-    />
-  </div>
-
-  <div v-else>
-    <CommentEdited
-      @edited="isEditing = false"
-      @cancel-edit="isEditing = false"
-      :comment="comment"
-      :pic="pic"
-    />
-  </div>
+    <div v-else>
+      <CommentEdited
+        @edited="isEditing = false"
+        @cancel-edit="isEditing = false"
+        :comment="comment"
+        :pic="pic"
+      />
+    </div>
+  </Transition>
 </template>
 
 <script setup>

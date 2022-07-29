@@ -19,13 +19,13 @@ export const useCommentStore = defineStore("CommentStore", {
       this.comments.push(reply);
 
       // Posting the new data
-      await fetch("http://localhost:5000/comments/", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(reply),
-      });
+      // await fetch("http://localhost:5000/comments/", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-type": "application/json",
+      //   },
+      //   body: JSON.stringify(reply),
+      // });
     },
     addReplyToComment: async function (reply, replyingId) {
       // Updating the DOM
@@ -34,17 +34,17 @@ export const useCommentStore = defineStore("CommentStore", {
       this.comments[comIndex].replies.push(reply);
 
       // Updating the data with one more reply
-      this.patchComment(this.comments[comIndex]);
+      // this.patchComment(this.comments[comIndex]);
     },
     deleteComment: async function (id) {
       const comment = this.comments.find((com) => com.id === id);
 
-      fetch(`http://localhost:5000/comments/${comment.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
-      });
+      // fetch(`http://localhost:5000/comments/${comment.id}`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     "Content-type": "application/json",
+      //   },
+      // });
       this.comments = this.comments.filter((el) => el.id !== id);
     },
     deleteReplyToComment: async function (id) {
@@ -54,16 +54,16 @@ export const useCommentStore = defineStore("CommentStore", {
       const toDeletedId = comment.replies.filter((el) => el.id === id);
       comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
 
-      this.patchComment(comment);
+      // this.patchComment(comment);
     },
-    patchComment: function (comment) {
-      fetch(`http://localhost:5000/comments/${comment.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(comment),
-      });
-    },
+    // patchComment: function (comment) {
+    //   fetch(`http://localhost:5000/comments/${comment.id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-type": "application/json",
+    //     },
+    //     body: JSON.stringify(comment),
+    //   });
+    // },
   },
 });

@@ -2,7 +2,7 @@
   <Teleport to="body">
     <Modal
       @delete="handleDelete(idToBeDeleted)"
-      @cancel="this.modalVisible = false"
+      @cancel="modalVisible = false"
       v-if="modalVisible"
     />
   </Teleport>
@@ -114,5 +114,3 @@ async function handleDelete(id) {
     : commentStore.deleteReplyToComment(id);
 }
 </script>
-
-<style scoped></style>

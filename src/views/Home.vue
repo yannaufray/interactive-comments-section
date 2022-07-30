@@ -3,27 +3,26 @@
     <TheLoader />
   </div> -->
   <div class="comments">
-    <Profiles
-      @profile-changed="changeCurrentProfile"
-      :currentUser="currentUser"
-    />
-    <Comments @loaded="loaded = true" :currentUser="currentUser" :pic="pic" />
+    <Profiles />
+    <!-- <Comments @loaded="loaded = true" /> -->
+    <Comments />
   </div>
 </template>
 
 <script setup>
 import { ref } from "@vue/reactivity";
+
 import Comments from "../components/Comments.vue";
 import Profiles from "../components/Profiles.vue";
-import TheLoader from "../components/TheLoader.vue";
-import { onMounted } from "@vue/runtime-core";
+// import TheLoader from "../components/TheLoader.vue";
+
 import { useCommentStore } from "../stores/CommentStore";
 import { useUserStore } from "../stores/UserStore";
+
 const commentStore = useCommentStore();
 const userStore = useUserStore();
 
 let loaded = ref(false);
-let currentUser = ref(userStore.currentUser.username);
 
 let pic = ref(userStore.pic);
 </script>

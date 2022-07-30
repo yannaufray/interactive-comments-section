@@ -1,11 +1,14 @@
 import { defineStore } from "pinia";
 import data from "../../data.json";
 import { formatDistanceToNow } from "date-fns";
+import { useAppStore } from "./AppStore";
 
 export const useCommentStore = defineStore("CommentStore", {
   state: () => {
     return {
       comments: data.comments,
+      answeredCommentId: null,
+      userAnswered: "",
     };
   },
   getters: {},
@@ -27,17 +30,28 @@ export const useCommentStore = defineStore("CommentStore", {
       //   body: JSON.stringify(reply),
       // });
     },
-    addReplyToComment: async function (reply, replyingId) {
+    handleClickOnReply: function (answeredComment) {
+      // Toggling off the bottom comment input box
+      const appStore = useAppStore();
+      appStore.replying = !appStore.replying;
+      // Setting id to display input box bellow the right comment
+      this.answeredCommentId = answeredComment.id;
+      console.log(appStore.replying);
+
+      // Setting userAnswered to get the @username tag
+      this.userAnswered = answeredComment.user.username;
+    },
+    addReplyToComment: async function (reply, answeredCommentId) {
       // Updating the DOM
 
       this.comments.map((com) => {
-        if (com.id === replyingId) {
+        if (com.id === answeredCommentId) {
           com.replies.push(reply);
           // Updating the data with one more reply
           // this.patchComment(com);
         } else {
           com.replies.map((rep) => {
-            if (rep.id === replyingId) {
+            if (rep.id === answeredCommentId) {
               reply.hasOwnProperty("replies")
                 ? reply.replies.push(reply)
                 : (reply.replies = [reply]);

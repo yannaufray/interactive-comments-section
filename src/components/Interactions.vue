@@ -1,29 +1,30 @@
 <template>
-  <Transition name="fade-in">
-    <div
-      @click="$emit('reply', comment)"
-      v-if="comment.user.username !== userStore.currentUser.username"
-      class="reply"
-    >
-      <img src="../assets/images/icon-reply.svg" alt="" />
-      <span>Reply</span>
-    </div>
-    <div v-else class="icons-current-user">
-      <div @click="$emit('delete', comment.id)" class="delete">
-        <img src="../assets/images/icon-delete.svg" alt="" />
-        <span>Delete</span>
-      </div>
-      <div @click="$emit('editing', com)" class="edit">
-        <img src="../assets/images/icon-edit.svg" alt="" />
-        <span>Edit</span>
-      </div>
-    </div></Transition
+  <div
+    @click="commentStore.handleClickOnReply(comment)"
+    v-if="comment.user.username !== userStore.currentUser.username"
+    class="reply"
   >
+    <img src="../assets/images/icon-reply.svg" alt="" />
+    <span>Reply</span>
+  </div>
+  <div v-else class="icons-current-user">
+    <div @click="appStore.displayDeleteModal(comment.id)" class="delete">
+      <img src="../assets/images/icon-delete.svg" alt="" />
+      <span>Delete</span>
+    </div>
+    <div @click="$emit('editing', com)" class="edit">
+      <img src="../assets/images/icon-edit.svg" alt="" />
+      <span>Edit</span>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { useUserStore } from "../stores/UserStore";
+import { useCommentStore } from "../stores/CommentStore";
+
 const userStore = useUserStore();
+const commentStore = useCommentStore();
 
 const props = defineProps({
   comment: Object,

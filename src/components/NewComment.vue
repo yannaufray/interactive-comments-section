@@ -16,19 +16,44 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
-import { useUserStore } from "../stores/UserStore";
 
+import { useAppStore } from "../stores/AppStore";
+import { useUserStore } from "../stores/UserStore";
+import { useCommentStore } from "../stores/CommentStore";
+
+const appStore = useAppStore();
 const userStore = useUserStore();
+const commentStore = useCommentStore();
 
 let content = ref("");
 
-const emit = defineEmits(["send"]);
-
-function sendReply() {
+async function sendReply() {
   if (content.value !== "") {
-    emit("send", content.value);
-    content.value = "";
+    const reply = {
+      id: Math.floor(Math.random() * 100000),
+      content: content.value,
+      createdAt: new Date(),
+      score: 1,
+      userAnswered: commentStore.userAnswered,
+      user: {
+        image: {
+          png: `../assets/images/avatars/image-${userStore.currentUser.username}.png`,
+          webp: `../assets/images/avatars/image-${userStore.currentUser.username}.webp`,
+        },
+        username: userStore.currentUser.username,
+      },
+    };
+
+    if (!appStore.isReplying) {
+      commentStore.addNewComment(reply);
+    } else {
+      commentStore.addReplyToComment(reply, answeredCommentId.value);
+      // Resets
+      appStore.isReplying = false;
+      commentStore.userAnswered = undefined;
+    }
   }
+  content.value = "";
 }
 </script>
 

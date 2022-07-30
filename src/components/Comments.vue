@@ -2,15 +2,15 @@
   <Teleport to="body">
     <Modal
       @delete="handleDelete(idToBeDeleted)"
-      @cancel="modalVisible = false"
-      v-if="modalVisible"
+      @cancel="appStore.modalVisible = false"
+      v-if="appStore.modalVisible"
     />
   </Teleport>
   <transition-group name="appears" appear>
     <div v-for="comment in commentStore.comments" :key="comment.id">
       <Comment
         @reply="handleReply"
-        @delete="displayDeleteModal"
+        @delete="appStore.displayDeleteModal(comment.id)"
         :comment="comment"
       />
       <NewComment
@@ -39,7 +39,7 @@ const appStore = useAppStore();
 let replyingId = ref(null);
 let replyingTo = ref("");
 let idToBeDeleted = ref(null);
-let modalVisible = ref(false);
+// let modalVisible = ref(false);
 
 // watch: {
 //   comment(oldVal, newVal) {
@@ -84,13 +84,13 @@ async function handleSend(content) {
   }
 }
 
-function displayDeleteModal(id) {
-  modalVisible.value = true;
-  idToBeDeleted.value = id;
-}
+// function displayDeleteModal(id) {
+//   modalVisible.value = true;
+//   idToBeDeleted.value = id;
+// }
 
 async function handleDelete(id) {
-  modalVisible.value = false;
+  appStore.modalVisible = false;
 
   const isReply = !commentStore.comments.some((el) => el.id === id);
 

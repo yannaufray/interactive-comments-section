@@ -1,57 +1,59 @@
 <template>
-  <Transition name="appears" mode="out-in">
-    <div v-if="!isEditing" class="full-comment">
-      <div class="content">
-        <div class="infos">
-          <img :src="pic" alt="" class="pic" />
-          <h3 class="username">{{ comment.user.username }}</h3>
-          <Transition name="fade-in"
-            ><span
-              v-if="comment.user.username === userStore.currentUser.username"
-              class="you"
-              >you</span
-            ></Transition
-          >
-          <span class="date">{{ commentStore.formattedDate(comment) }}</span>
+  <transition-group name="appears" appear>
+    <Transition name="appears" mode="out-in">
+      <div v-if="!isEditing" class="full-comment">
+        <div class="content">
+          <div class="infos">
+            <img :src="pic" alt="" class="pic" />
+            <h3 class="username">{{ comment.user.username }}</h3>
+            <Transition name="fade-in"
+              ><span
+                v-if="comment.user.username === userStore.currentUser.username"
+                class="you"
+                >you</span
+              ></Transition
+            >
+            <span class="date">{{ commentStore.formattedDate(comment) }}</span>
+          </div>
+
+          <div class="text">
+            <span v-if="comment.replyingTo" class="replying-to"
+              >@{{ comment.replyingTo }}</span
+            >
+            {{ comment.content }}
+          </div>
         </div>
 
-        <div class="text">
-          <span v-if="comment.replyingTo" class="replying-to"
-            >@{{ comment.replyingTo }}</span
-          >
-          {{ comment.content }}
+        <Likes :comment="comment" />
+
+        <Interactions
+          @reply="$emit('reply', comment)"
+          @delete="$emit('delete', comment.id)"
+          @editing="isEditing = !isEditing"
+          :comment="comment"
+          :isEditing="isEditing"
+        />
+      </div>
+
+      <div v-else>
+        <CommentEdited
+          @edited="editComment"
+          @cancel-edit="isEditing = false"
+          :comment="comment"
+          :pic="pic"
+        />
+      </div>
+    </Transition>
+    <!-- Replies if any -->
+    <div v-if="comment.replies && comment.replies.length" class="replies">
+      <transition-group name="appears" appear>
+        <div v-for="comment in comment.replies" :key="comment.id">
+          <Comment :comment="comment" />
+          <NewComment v-if="appStore.replying && comment.id === replyingId" />
         </div>
-      </div>
-
-      <Likes :comment="comment" />
-
-      <Interactions
-        @reply="$emit('reply', comment)"
-        @delete="$emit('delete', comment.id)"
-        @editing="isEditing = !isEditing"
-        :comment="comment"
-        :isEditing="isEditing"
-      />
+      </transition-group>
     </div>
-
-    <div v-else>
-      <CommentEdited
-        @edited="editComment"
-        @cancel-edit="isEditing = false"
-        :comment="comment"
-        :pic="pic"
-      />
-    </div>
-  </Transition>
-  <!-- Replies if any -->
-  <div v-if="comment.replies && comment.replies.length" class="replies">
-    <transition-group name="appears" appear>
-      <div v-for="comment in comment.replies" :key="comment.id">
-        <Comment :comment="comment" />
-        <NewComment v-if="appStore.replying && comment.id === replyingId" />
-      </div>
-    </transition-group>
-  </div>
+  </transition-group>
 </template>
 
 <script setup>
@@ -59,7 +61,6 @@ import Likes from "./Likes.vue";
 import Interactions from "./Interactions.vue";
 import CommentEdited from "./CommentEdited.vue";
 import { ref } from "@vue/reactivity";
-import { computed } from "@vue/runtime-core";
 
 import { useUserStore } from "../stores/UserStore";
 import { useCommentStore } from "../stores/CommentStore";

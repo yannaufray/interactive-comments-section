@@ -10,8 +10,8 @@ export const useAppStore = defineStore("AppStore", {
   },
   actions: {
     displayDeleteModal(id) {
-      this.modalVisible = true;
       this.idToBeDeleted = id;
+      this.modalVisible = true;
     },
   },
 });

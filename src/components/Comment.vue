@@ -37,11 +37,12 @@
       :pic="pic"
     />
   </div>
+
   <NewComment
     v-if="appStore.isReplying && comment.id === commentStore.answeredCommentId"
   />
 
-  <!-- Replies if any -->
+  <!-- Replies if any (recursive component) -->
   <div v-if="comment.replies && comment.replies.length" class="replies">
     <div v-for="comment in comment.replies" :key="comment.id">
       <Comment :comment="comment" />
@@ -69,9 +70,9 @@ const editComment = (editedComment) => {
   isEditing.value = false;
 };
 
+const appStore = useAppStore();
 const userStore = useUserStore();
 const commentStore = useCommentStore();
-const appStore = useAppStore();
 let isEditing = ref(false);
 
 const pic = ref(

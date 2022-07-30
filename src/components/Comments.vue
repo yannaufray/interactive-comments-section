@@ -1,7 +1,6 @@
 <template>
   <Teleport to="body">
     <Modal
-      @delete="handleDelete(idToBeDeleted)"
       @cancel="appStore.modalVisible = false"
       v-if="appStore.modalVisible"
     />
@@ -39,14 +38,4 @@ let idToBeDeleted = ref(null);
 //   modalVisible.value = true;
 //   idToBeDeleted.value = id;
 // }
-
-async function handleDelete(id) {
-  appStore.modalVisible = false;
-
-  const isReply = !commentStore.comments.some((el) => el.id === id);
-
-  !isReply
-    ? commentStore.deleteComment(id)
-    : commentStore.deleteReplyToComment(id);
-}
 </script>

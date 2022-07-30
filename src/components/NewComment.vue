@@ -47,7 +47,7 @@ async function sendReply() {
     if (!appStore.isReplying) {
       commentStore.addNewComment(reply);
     } else {
-      commentStore.addReplyToComment(reply, answeredCommentId.value);
+      commentStore.addReplyToComment(reply, commentStore.answeredCommentId);
       // Resets
       appStore.isReplying = false;
       commentStore.userAnswered = undefined;

@@ -10,11 +10,34 @@
       </p>
       <div class="btns">
         <button @click="$emit('cancel')" class="btn cancel">No, cancel</button>
-        <button @click="$emit('delete')" class="btn delete">Yes, delete</button>
+        <button
+          @click="handleDelete(appStore.idToBeDeleted)"
+          class="btn delete"
+        >
+          Yes, delete
+        </button>
       </div>
     </div>
   </div>
 </template>
+
+<script setup>
+import { useAppStore } from "../stores/AppStore";
+import { useCommentStore } from "../stores/CommentStore";
+
+const appStore = useAppStore();
+const commentStore = useCommentStore();
+
+async function handleDelete(id) {
+  appStore.modalVisible = false;
+
+  const isReply = !commentStore.comments.some((el) => el.id === id);
+
+  !isReply
+    ? commentStore.deleteComment(id)
+    : commentStore.deleteReplyToComment(id);
+}
+</script>
 
 <style scoped>
 .container {

@@ -20,9 +20,11 @@
 </template>
 
 <script setup>
+import { useAppStore } from "../stores/AppStore";
 import { useUserStore } from "../stores/UserStore";
 import { useCommentStore } from "../stores/CommentStore";
 
+const appStore = useAppStore();
 const userStore = useUserStore();
 const commentStore = useCommentStore();
 

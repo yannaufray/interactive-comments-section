@@ -33,10 +33,19 @@ export const useCommentStore = defineStore("CommentStore", {
     handleClickOnReply: function (answeredComment) {
       // Toggling off the bottom comment input box
       const appStore = useAppStore();
-      appStore.isReplying = !appStore.isReplying;
+
+      // Toggle function
+      if (
+        appStore.isReplying === true &&
+        this.answeredCommentId === answeredComment.id
+      ) {
+        appStore.isReplying = false;
+        return;
+      }
+
+      appStore.isReplying = true;
       // Setting id to display input box bellow the right comment
       this.answeredCommentId = answeredComment.id;
-      console.log(appStore.isReplying);
 
       // Setting userAnswered to get the @username tag
       this.userAnswered = answeredComment.user.username;

@@ -9,7 +9,9 @@
         comment and can't be undone.
       </p>
       <div class="btns">
-        <button @click="$emit('cancel')" class="btn cancel">No, cancel</button>
+        <button @click="appStore.modalVisible = false" class="btn cancel">
+          No, cancel
+        </button>
         <button
           @click="handleDelete(appStore.idToBeDeleted)"
           class="btn delete"

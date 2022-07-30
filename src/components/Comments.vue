@@ -1,9 +1,6 @@
 <template>
   <Teleport to="body">
-    <Modal
-      @cancel="appStore.modalVisible = false"
-      v-if="appStore.modalVisible"
-    />
+    <Modal v-if="appStore.modalVisible" />
   </Teleport>
   <div v-for="comment in commentStore.comments" :key="comment.id">
     <Comment :comment="comment" />

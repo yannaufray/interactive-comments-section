@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import data from "../../data.json";
+import { useAppStore } from "./AppStore";
 
 export const useUserStore = defineStore("UserStore", {
   state: () => {
@@ -51,6 +52,9 @@ export const useUserStore = defineStore("UserStore", {
       setTimeout(() => {
         this.userChanging = false;
       }, 700);
+
+      const appStore = useAppStore();
+      appStore.isReplying = false;
     },
   },
 });

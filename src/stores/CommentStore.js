@@ -71,14 +71,14 @@ export const useCommentStore = defineStore("CommentStore", {
       });
     },
     deleteComment: async function (id) {
-      const comment = this.comments.find((com) => com.id === id);
-
+      // const comment = this.comments.find((com) => com.id === id);
       // fetch(`http://localhost:5000/comments/${comment.id}`, {
       //   method: "DELETE",
       //   headers: {
       //     "Content-type": "application/json",
       //   },
       // });
+
       this.comments = this.comments.filter((el) => el.id !== id);
     },
     deleteReplyToComment: async function (id) {

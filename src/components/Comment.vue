@@ -45,7 +45,6 @@
   <div v-if="comment.replies && comment.replies.length" class="replies">
     <div v-for="comment in comment.replies" :key="comment.id">
       <Comment :comment="comment" />
-      <NewComment v-if="appStore.isReplying && comment.id === replyingId" />
     </div>
   </div>
 </template>

@@ -22,7 +22,6 @@ import { useCommentStore } from "../stores/CommentStore";
 import { useAppStore } from "../stores/AppStore";
 
 import { ref } from "@vue/runtime-core";
-const userStore = useUserStore();
 const commentStore = useCommentStore();
 const appStore = useAppStore();
 

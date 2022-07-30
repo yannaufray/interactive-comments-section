@@ -29,12 +29,22 @@ export const useCommentStore = defineStore("CommentStore", {
     },
     addReplyToComment: async function (reply, replyingId) {
       // Updating the DOM
-      const comIndex = this.comments.findIndex((com) => com.id === replyingId);
-      // console.log(this.comments[comIndex].replies);
-      this.comments[comIndex].replies.push(reply);
 
-      // Updating the data with one more reply
-      // this.patchComment(this.comments[comIndex]);
+      this.comments.map((com) => {
+        if (com.id === replyingId) {
+          com.replies.push(reply);
+          // Updating the data with one more reply
+          // this.patchComment(com);
+        } else {
+          com.replies.map((rep) => {
+            if (rep.id === replyingId) {
+              reply.hasOwnProperty("replies")
+                ? reply.replies.push(reply)
+                : (reply.replies = [reply]);
+            }
+          });
+        }
+      });
     },
     deleteComment: async function (id) {
       const comment = this.comments.find((com) => com.id === id);

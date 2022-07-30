@@ -15,28 +15,11 @@
       />
       <NewComment
         @send="handleSend"
-        v-if="replying && comment.id === replyingId"
+        v-if="appStore.replying && comment.id === replyingId"
       />
-
-      <div v-if="comment.replies && comment.replies.length" class="replies">
-        <transition-group name="appears" appear>
-          <div v-for="comment in comment.replies" :key="comment.id">
-            <Comment
-              @reply="handleReply"
-              @delete="displayDeleteModal"
-              :comment="comment"
-              :replying="replying"
-            />
-            <NewComment
-              @send="handleSend"
-              v-if="replying && comment.id === replyingId"
-            />
-          </div>
-        </transition-group>
-      </div>
     </div>
   </transition-group>
-  <NewComment v-if="!replying" @send="handleSend" />
+  <NewComment v-if="!appStore.replying" @send="handleSend" />
 </template>
 
 <script setup>
@@ -46,11 +29,13 @@ import Modal from "./Modal.vue";
 
 import { useUserStore } from "../stores/UserStore";
 import { useCommentStore } from "../stores/CommentStore";
+import { useAppStore } from "../stores/AppStore";
+
 import { ref } from "@vue/runtime-core";
 const userStore = useUserStore();
 const commentStore = useCommentStore();
+const appStore = useAppStore();
 
-let replying = ref(false);
 let replyingId = ref(null);
 let replyingTo = ref("");
 let idToBeDeleted = ref(null);
@@ -66,7 +51,7 @@ let modalVisible = ref(false);
 
 function handleReply(commentToBeReplied) {
   // Toggling off the bottom comment input box
-  replying.value = !replying.value;
+  appStore.replying = !appStore.replying;
   // Setting id to display input box bellow the right comment
   replyingId.value = commentToBeReplied.id;
   // Setting replyingTo to get the @username tag
@@ -89,12 +74,12 @@ async function handleSend(content) {
     },
   };
 
-  if (!replying.value) {
+  if (!appStore.replying) {
     commentStore.addNewComment(reply);
   } else {
     commentStore.addReplyToComment(reply, replyingId.value);
     // Resets
-    replying.value = false;
+    appStore.replying = false;
     replyingTo.value = undefined;
   }
 }

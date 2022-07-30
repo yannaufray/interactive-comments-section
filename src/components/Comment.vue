@@ -43,6 +43,15 @@
       />
     </div>
   </Transition>
+  <!-- Replies if any -->
+  <div v-if="comment.replies && comment.replies.length" class="replies">
+    <transition-group name="appears" appear>
+      <div v-for="comment in comment.replies" :key="comment.id">
+        <Comment :comment="comment" />
+        <NewComment v-if="appStore.replying && comment.id === replyingId" />
+      </div>
+    </transition-group>
+  </div>
 </template>
 
 <script setup>
@@ -54,6 +63,7 @@ import { computed } from "@vue/runtime-core";
 
 import { useUserStore } from "../stores/UserStore";
 import { useCommentStore } from "../stores/CommentStore";
+import { useAppStore } from "../stores/AppStore";
 
 const props = defineProps({
   comment: Object,
@@ -66,6 +76,7 @@ const editComment = (editedComment) => {
 
 const userStore = useUserStore();
 const commentStore = useCommentStore();
+const appStore = useAppStore();
 let isEditing = ref(false);
 
 const pic = ref(

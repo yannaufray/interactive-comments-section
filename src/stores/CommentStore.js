@@ -34,7 +34,7 @@ export const useCommentStore = defineStore("CommentStore", {
       // Toggling off the bottom comment input box
       const appStore = useAppStore();
 
-      // Toggle function
+      // Ttoggling off if another click on 'reply' happens
       if (
         appStore.isReplying === true &&
         this.answeredCommentId === answeredComment.id
@@ -50,20 +50,21 @@ export const useCommentStore = defineStore("CommentStore", {
       // Setting userAnswered to get the @username tag
       this.userAnswered = answeredComment.user.username;
     },
-    addReplyToComment: async function (reply, answeredCommentId) {
+    addReplyToComment: async function (reply) {
       // Updating the DOM
 
       this.comments.map((com) => {
-        if (com.id === answeredCommentId) {
+        if (com.id === this.answeredCommentId) {
+          console.log("a");
           com.replies.push(reply);
           // Updating the data with one more reply
           // this.patchComment(com);
         } else {
           com.replies.map((rep) => {
-            if (rep.id === answeredCommentId) {
-              reply.hasOwnProperty("replies")
-                ? reply.replies.push(reply)
-                : (reply.replies = [reply]);
+            if (rep.id === this.answeredCommentId) {
+              rep.hasOwnProperty("replies")
+                ? rep.replies.push(reply)
+                : (rep.replies = [reply]);
             }
           });
         }

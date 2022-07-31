@@ -1,23 +1,29 @@
 <template>
-  <Teleport to="body">
-    <Modal v-if="appStore.modalVisible" />
-  </Teleport>
-  <div v-for="comment in commentStore.comments" :key="comment.id">
-    <Comment :comment="comment" />
-  </div>
-  <NewComment v-if="!appStore.isReplying" />
+	<Teleport to="body">
+		<Modal v-if="appStore.modalVisible" />
+	</Teleport>
+
+	<transition-group name="appears" appear>
+		<div v-for="comment in commentStore.comments" :key="comment.id">
+			<Comment :comment="comment" />
+		</div>
+	</transition-group>
+
+	<Transition name="fade-in" appear>
+		<NewComment v-if="!appStore.isReplying" />
+	</Transition>
 </template>
 
 <script setup>
-import Comment from "./Comment.vue";
-import NewComment from "./NewComment.vue";
-import Modal from "./Modal.vue";
+import Comment from './Comment.vue';
+import NewComment from './NewComment.vue';
+import Modal from './Modal.vue';
 
-import { useUserStore } from "../stores/UserStore";
-import { useCommentStore } from "../stores/CommentStore";
-import { useAppStore } from "../stores/AppStore";
+import { useUserStore } from '../stores/UserStore';
+import { useCommentStore } from '../stores/CommentStore';
+import { useAppStore } from '../stores/AppStore';
 
-import { ref } from "@vue/runtime-core";
+import { ref } from '@vue/runtime-core';
 const commentStore = useCommentStore();
 const appStore = useAppStore();
 

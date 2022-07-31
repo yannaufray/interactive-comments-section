@@ -51,25 +51,20 @@ export const useCommentStore = defineStore("CommentStore", {
       this.userAnswered = answeredComment.user.username;
     },
     addReplyToComment: async function (reply) {
-      // Updating the DOM
+      const id = this.answeredCommentId;
+      // Declaring this function so we can recursively loop through every comment that has replies, and find the right comment to add reply to.
+      const addReplyToArray = function (arr) {
+        arr.map((item) => {
+          if (item.id === id)
+            item.replies ? item.replies.push(reply) : (item.replies = [reply]);
+          if (item.replies) addReplyToArray(item.replies, id);
+        });
+      };
 
-      this.comments.map((com) => {
-        if (com.id === this.answeredCommentId) {
-          com.replies.push(reply);
-          // Updating the data with one more reply
-          // this.patchComment(com);
-        } else {
-          com.replies.map((rep) => {
-            if (rep.id === this.answeredCommentId) {
-              rep.hasOwnProperty("replies")
-                ? rep.replies.push(reply)
-                : (rep.replies = [reply]);
-            }
-          });
-        }
-      });
+      addReplyToArray(this.comments);
     },
     deleteComment: async function (id) {
+      // Also a recursive function.
       const deleteCommentFromArr = function (arr, id) {
         arr.map((item) => {
           if (item.id === id) arr.splice(arr.indexOf(item), 1);

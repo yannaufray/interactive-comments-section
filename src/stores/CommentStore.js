@@ -40,11 +40,13 @@ export const useCommentStore = defineStore('CommentStore', {
 				this.answeredCommentId === answeredComment.id
 			) {
 				appStore.isReplying = false;
+
 				this.userAnswered = '';
 				return;
 			}
 
 			appStore.isReplying = true;
+
 			// Setting id to display input box bellow the right comment
 			this.answeredCommentId = answeredComment.id;
 

@@ -37,7 +37,7 @@
 		<div v-else>
 			<CommentEdited
 				@edited="editComment"
-				@cancel-edit="isEditing = false"
+				@cancel-edit="handleCancelEdit"
 				:comment="comment"
 				:pic="pic"
 			/>
@@ -79,7 +79,15 @@ const props = defineProps({
 
 const editComment = editedComment => {
 	props.comment.content = editedComment;
+	// Setting it to current comment
 	isEditing.value = false;
+	// Setting it back to false
+	appStore.isEditing = false;
+};
+
+const handleCancelEdit = () => {
+	isEditing.value = false;
+	appStore.isEditing = false;
 };
 
 const appStore = useAppStore();

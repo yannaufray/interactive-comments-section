@@ -10,7 +10,7 @@
 	</transition-group>
 
 	<Transition name="fade-in" appear>
-		<NewComment v-if="!appStore.isReplying" />
+		<NewComment v-if="!appStore.isReplying && !appStore.isEditing" />
 	</Transition>
 </template>
 

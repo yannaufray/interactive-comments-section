@@ -55,7 +55,6 @@ export const useCommentStore = defineStore("CommentStore", {
 
       this.comments.map((com) => {
         if (com.id === this.answeredCommentId) {
-          console.log("a");
           com.replies.push(reply);
           // Updating the data with one more reply
           // this.patchComment(com);
@@ -71,33 +70,17 @@ export const useCommentStore = defineStore("CommentStore", {
       });
     },
     deleteComment: async function (id) {
-      // const comment = this.comments.find((com) => com.id === id);
-      // fetch(`http://localhost:5000/comments/${comment.id}`, {
-      //   method: "DELETE",
-      //   headers: {
-      //     "Content-type": "application/json",
-      //   },
-      // });
+      const deleteCommentFromArr = function (arr, id) {
+        arr.map((item) => {
+          if (item.id === id) arr.splice(arr.indexOf(item), 1);
+          if (item.replies) deleteCommentFromArr(item.replies, id);
+        });
+      };
 
-      this.comments = this.comments.filter((el) => el.id !== id);
-    },
-    deleteReplyToComment: async function (id) {
-      const comment = this.comments.find((com) =>
-        com.replies.some((reply) => reply.id === id)
-      );
-      const toDeletedId = comment.replies.filter((el) => el.id === id);
-      comment.replies.splice(comment.replies.indexOf(toDeletedId), 1);
+      deleteCommentFromArr(this.comments, id);
 
-      // this.patchComment(comment);
+      // The following works but just for top-level comments. For multiple-level arrays, we need recursion.
+      // this.comments = this.comments.filter((el) => el.id !== id);
     },
-    // patchComment: function (comment) {
-    //   fetch(`http://localhost:5000/comments/${comment.id}`, {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //     },
-    //     body: JSON.stringify(comment),
-    //   });
-    // },
   },
 });

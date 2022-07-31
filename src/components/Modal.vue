@@ -32,12 +32,7 @@ const commentStore = useCommentStore();
 
 async function handleDelete(id) {
   appStore.modalVisible = false;
-
-  const isReply = !commentStore.comments.some((el) => el.id === id);
-
-  !isReply
-    ? commentStore.deleteComment(id)
-    : commentStore.deleteReplyToComment(id);
+  commentStore.deleteComment(id);
 }
 </script>
 

@@ -73,9 +73,15 @@ import { useAppStore } from '../stores/AppStore';
 import { useUserStore } from '../stores/UserStore';
 import { useCommentStore } from '../stores/CommentStore';
 
+const appStore = useAppStore();
+const userStore = useUserStore();
+const commentStore = useCommentStore();
+
 const props = defineProps({
 	comment: Object,
 });
+
+let isEditing = ref(false);
 
 const editComment = editedComment => {
 	props.comment.content = editedComment;
@@ -89,11 +95,6 @@ const handleCancelEdit = () => {
 	isEditing.value = false;
 	appStore.isEditing = false;
 };
-
-const appStore = useAppStore();
-const userStore = useUserStore();
-const commentStore = useCommentStore();
-let isEditing = ref(false);
 
 const pic = ref(
 	require(`../assets/images/avatars/image-${props.comment.user.username}.png`)

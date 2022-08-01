@@ -15,30 +15,15 @@
 </template>
 
 <script setup>
+import { ref } from '@vue/runtime-core';
+
 import Comment from './Comment.vue';
 import NewComment from './NewComment.vue';
 import Modal from './Modal.vue';
 
-import { useUserStore } from '../stores/UserStore';
 import { useCommentStore } from '../stores/CommentStore';
 import { useAppStore } from '../stores/AppStore';
 
-import { ref } from '@vue/runtime-core';
 const commentStore = useCommentStore();
 const appStore = useAppStore();
-
-let idToBeDeleted = ref(null);
-
-// watch: {
-//   comment(oldVal, newVal) {
-//     if (newVal.length) {
-//       this.$emit(loaded);
-//     }
-//   },
-// },
-
-// function displayDeleteModal(id) {
-//   modalVisible.value = true;
-//   idToBeDeleted.value = id;
-// }
 </script>

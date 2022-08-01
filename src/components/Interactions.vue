@@ -46,12 +46,6 @@ const handleEdit = com => {
 </script>
 
 <style scoped>
-.delete,
-.reply,
-.edit {
-	user-select: none;
-}
-
 .edit span,
 .delete span {
 	font-weight: 700;

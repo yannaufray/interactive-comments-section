@@ -155,18 +155,12 @@ const pic = ref(
 	color: var(--main-color);
 }
 
-.pic,
-.replying-to {
-	user-select: none;
-}
-
 .you {
 	padding: 0.1rem 0.4rem;
 	color: white;
 	font-weight: 700;
 	background-color: var(--main-color);
 	border-radius: 0.3rem;
-	user-select: none;
 }
 
 @media screen and (min-width: 700px) {

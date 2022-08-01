@@ -27,6 +27,21 @@ body {
 	justify-content: center;
 }
 
+.pic,
+.replying-to,
+.you,
+.profile,
+.likes-number,
+.btn-plus,
+.btn-minus,
+.delete,
+.reply,
+.edit {
+	user-select: none;
+}
+
+/* Transitions */
+
 .appears-enter-from,
 .appears-leave-to {
 	opacity: 0;

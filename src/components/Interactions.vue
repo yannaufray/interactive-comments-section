@@ -1,5 +1,5 @@
 <template>
-	<Transition name="appears">
+	<Transition name="fade-in">
 		<div
 			@click="commentStore.handleClickOnReply(comment)"
 			v-if="comment.user.username !== userStore.currentUser.username"

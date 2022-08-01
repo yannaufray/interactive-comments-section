@@ -1,5 +1,5 @@
 <template>
-	<Transition name="appears" mode="out-in">
+	<Transition name="fade-in" mode="out-in">
 		<div v-if="!isEditing" class="full-comment">
 			<div class="content">
 				<div class="infos">
@@ -54,11 +54,11 @@
 
 	<!-- Replies if any (recursive component) -->
 	<div v-if="comment.replies && comment.replies.length" class="replies">
-		<transition-group name="appears" appear>
+		<TransitionGroup name="appears" appear>
 			<div v-for="comment in comment.replies" :key="comment.id">
 				<Comment :comment="comment" />
 			</div>
-		</transition-group>
+		</TransitionGroup>
 	</div>
 </template>
 

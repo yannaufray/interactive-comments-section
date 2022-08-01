@@ -3,11 +3,11 @@
 		<Modal v-if="appStore.modalVisible" />
 	</Teleport>
 
-	<transition-group name="appears" appear>
+	<TransitionGroup name="appears" appear>
 		<div v-for="comment in commentStore.comments" :key="comment.id">
 			<Comment :comment="comment" />
 		</div>
-	</transition-group>
+	</TransitionGroup>
 
 	<Transition name="fade-in" appear>
 		<NewComment v-if="!appStore.isReplying && !appStore.isEditing" />

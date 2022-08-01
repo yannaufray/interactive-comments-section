@@ -30,16 +30,16 @@ body {
 .appears-enter-from,
 .appears-leave-to {
 	opacity: 0;
-	transform: scale(0.95);
+	transform: scale(0.95) translateY(30px);
 }
 
 .appears-enter-active,
-.appears-leave-to {
+.appears-leave-active {
 	transition: all 0.3s ease;
 }
 
 .appears-move {
-	transition: all 0.3s ease;
+	transition: transform 0.3s ease-out;
 }
 
 .fade-in-enter-from {
@@ -47,6 +47,6 @@ body {
 }
 
 .fade-in-enter-active {
-	transition: all 0.5s ease;
+	transition: opacity 0.5s ease;
 }
 </style>

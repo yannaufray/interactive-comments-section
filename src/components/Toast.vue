@@ -1,5 +1,5 @@
 <template>
-	<Transition name="toast">
+	<Transition name="fade-in-out">
 		<span class="message" :class="{ alert }">
 			<slot></slot>
 		</span>
@@ -27,7 +27,8 @@ export default {
 	bottom: 1rem;
 }
 
-.toast-enter-from,
+/* Original transition: weird translateX jump on Chrome
+ .toast-enter-from,
 .toast-leave-to {
 	transform: translateY(5vh);
 }
@@ -35,6 +36,16 @@ export default {
 .toast-enter-active,
 .toast-leave-active {
 	transition: transform 0.1s ease;
+} */
+
+.fade-in-out-enter-from,
+.fade-in-out-leave-to {
+	opacity: 0;
+}
+
+.fade-in-out-enter-active,
+.fade-in-out-leave-active {
+	transition: opacity 0.2s ease;
 }
 
 .alert {

@@ -43,7 +43,8 @@ body {
 .appears-enter-from,
 .appears-leave-to {
 	opacity: 0;
-	transform: scale(0.95) translateY(30px);
+	/* transform: scale(0.95) translateY(30px); */
+	transform: scale(0.95);
 }
 
 .appears-enter-active,

@@ -2,8 +2,6 @@
 	<router-view />
 </template>
 
-<script setup></script>
-
 <style>
 #app {
 	font-family: 'Rubik', sans-serif;

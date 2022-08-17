@@ -15,8 +15,6 @@
 </template>
 
 <script setup>
-import { ref } from '@vue/runtime-core';
-
 import Comment from './Comment.vue';
 import NewComment from './NewComment.vue';
 import Modal from './Modal.vue';
